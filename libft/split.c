@@ -1,75 +1,64 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   split.c                                            :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: ercdeniz <ercdeniz@student.42kocaeli.co    +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/09/19 15:34:13 by ercdeniz          #+#    #+#             */
-/*   Updated: 2023/09/23 16:50:46 by ercdeniz         ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "libft.h"
+#include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include "libft.h"
 
-char	**free_malloc(char **tab, size_t i)
+static int	ft_count_words(char const *s, char c)
 {
-	while (tab[i])
-		free(tab[i++]);
-	return (free(tab), NULL);
-}
+	int	index;
+	int	count;
 
-int	word_count(char const *s, char c)
-{
-	size_t	i;
-
-	i = 0;
-	while (*s)
+	index = 0;
+	count = 0;
+	while (s[index])
 	{
-		if (*s == c)
-			s++;
+		if (s[index] == c)
+			index++;
 		else
 		{
-			while (*s && *s != c)
-				s++;
-			i++;
+			count++;
+			while (s[index] && s[index] != c)
+				index++;
 		}
 	}
-	return (i);
+	return (count);
 }
 
-static int	wlen(char const *s, char c)
+static void	ft_allocate(char **tab, char const *s, char sep)
 {
-	int	len;
+	char		**tab_p;
+	char const	*tmp;
 
-	len = 0;
-	if (!*s)
-		return (0);
-	while (*s && *s++ != c)
-		len++;
-	return (len);
+	tmp = s;
+	tab_p = tab;
+	while (*tmp)
+	{
+		while (*s == sep)
+			++s;
+		tmp = s;
+		while (*tmp && *tmp != sep)
+			++tmp;
+		if (tmp > s)
+		{
+			*tab_p = ft_substr(s, 0, tmp - s);
+			s = tmp;
+			++tab_p;
+		}
+	}
+	*tab_p = NULL;
 }
 
 char	**ft_split(char const *s, char c)
 {
-	char	**res;
-	int		a;
-	int		i;
+	char	**new;
+	int		size;
 
-	a = -1;
-	i = 0;
-	res = (char **)malloc(sizeof(char *) * (word_count(s, c) + 1));
-	if (!s || !res)
+	if (!s)
 		return (NULL);
-	while (++a < word_count(s, c))
-	{
-		while (s[i] && s[i] == c)
-			i++;
-		res[a] = ft_substr(s, i, wlen(&s[i], c));
-		if (!res[a])
-			return (free_malloc(res, 0));
-		i += wlen(&s[i], c);
-	}
-	return (res[a] = NULL, res);
+	size = ft_count_words(s, c);
+	new = (char **)malloc(sizeof(char *) * (size + 1));
+	if (!new)
+		return (NULL);
+	ft_allocate(new, s, c);
+	return (new);
 }

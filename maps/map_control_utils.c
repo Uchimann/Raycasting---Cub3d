@@ -1,5 +1,41 @@
 #include "map.h"
 
+char **split_lines(char *str, int *num_lines) {
+  // Satır sayısını bulmak için '\n' karakterlerini sayıyoruz
+  int n = 1;
+  for (int i = 0; str[i] != '\0'; i++) {
+    if (str[i] == '\n') {
+      n++;
+    }
+  }
+
+  // Satırları saklamak için 2 boyutlu bir dizi oluşturuyoruz
+  char **lines = malloc(n * sizeof(char *));
+
+  // Her satırı ayrı bir satıra kopyalıyoruz
+  int i = 0, j = 0;
+  while (str[i] != '\0') {
+    if (str[i] == '\n') {
+      lines[j] = malloc(i - j + 1);
+      strncpy(lines[j], str + j, i - j);
+      lines[j][i - j] = '\0';
+      j = i + 1;
+    }
+    i++;
+  }
+
+  // Son satırı da kopyalıyoruz
+  lines[j] = malloc(i - j + 1);
+  strncpy(lines[j], str + j, i - j);
+  lines[j][i - j] = '\0';
+
+  // Satır sayısını fonksiyonun dışına çıkarmak için bir pointer kullanıyoruz
+  *num_lines = n;
+
+  // Oluşturulan 2 boyutlu diziyi return ediyoruz
+  return lines;
+}
+
 char *texture_path_handler(char *str)
 {
     int i;
@@ -21,8 +57,13 @@ char *texture_path_handler(char *str)
 
 void map_size(t_map *map)
 {
+
     map->mapheight = 0;
     map->map = ft_split(map->map_line, '\n');
+
+    ///////////////////////////////////7
+    //printf("mapin mapinin 4.sü --> \n ******** \n %s *********\n",map->map[6]);
+    //printf("line'ımız -> %s",map->map_line);
     if(!map->map)
     {
         printf("Error map\n");
@@ -37,7 +78,7 @@ void map_size(t_map *map)
         i++;
     }
     printf("map_height = %d\n", map->mapheight);
-};
+}
 void check_name(char *name)
 {
     int i;
@@ -94,7 +135,7 @@ int check_line_dir(char *map)
             return 1;
         else if((strncmp(map,"C ",2) == 0))
             return 1;
-        else if(c == ' ' || c == '\n')
+        else if(c == '\n') // boşluk yasak ise burayu düzelt. // veya bosluk ise
             i++;
         else if (c == '\0')
             return 1;
