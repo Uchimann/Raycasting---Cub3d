@@ -1,58 +1,109 @@
 #include "map.h"
 
-char **split_lines(char *str, int *num_lines) {
-  // Satır sayısını bulmak için '\n' karakterlerini sayıyoruz
-  int n = 1;
-  for (int i = 0; str[i] != '\0'; i++) {
-    if (str[i] == '\n') {
-      n++;
-    }
-  }
-
-  // Satırları saklamak için 2 boyutlu bir dizi oluşturuyoruz
-  char **lines = malloc(n * sizeof(char *));
-
-  // Her satırı ayrı bir satıra kopyalıyoruz
-  int i = 0, j = 0;
-  while (str[i] != '\0') {
-    if (str[i] == '\n') {
-      lines[j] = malloc(i - j + 1);
-      strncpy(lines[j], str + j, i - j);
-      lines[j][i - j] = '\0';
-      j = i + 1;
-    }
-    i++;
-  }
-
-  // Son satırı da kopyalıyoruz
-  lines[j] = malloc(i - j + 1);
-  strncpy(lines[j], str + j, i - j);
-  lines[j][i - j] = '\0';
-
-  // Satır sayısını fonksiyonun dışına çıkarmak için bir pointer kullanıyoruz
-  *num_lines = n;
-
-  // Oluşturulan 2 boyutlu diziyi return ediyoruz
-  return lines;
-}
-
 char *texture_path_handler(char *str)
 {
     int i;
     int j;
     char *ret_path;
+    /*
+    */
 
-    ret_path = malloc(100 * sizeof(char *));
+   // ret_path = malloc(100 * sizeof(char *));
     j = 0;
     i = 3;
 
-    while(str[i])
+    ret_path = malloc(100 * sizeof(char));
+    //ret_path = ft_substr(str,i,ft_strlen(str));
+   // printf("ret_pathimiz --> %s ",ret_path);
+    if(str[i] == '\0')
+        return NULL;
+    while(str[i] != '\0')
     {
         ret_path[j] = str[i];
         i++;
         j++;
     }
     return ret_path;
+}
+char *color_path_handler(char *str)
+{
+    int i;
+    int j;
+    char *ret_path;
+
+    j = 0;
+    i = 2;
+
+    ret_path = malloc(100 * sizeof(char));
+
+    while(str[i] != '\0')
+    {
+        ret_path[j] = str[i];
+        i++;
+        j++;
+    }
+    return ret_path;
+}
+
+void is_digit_color(char **str,t_map *map)
+{
+    int i;
+    int j;
+
+    i = 0;
+    while(str[i])
+    {
+        j = 0;
+        while(str[i][j])
+        {
+            if(!ft_isdigit(str[i][j]))
+            {
+                ft_err_mapcontrol("renkler sadece sayi olmali ! \n",map);
+                exit(1);
+            }
+            j++;
+        }
+        i++;
+    }
+}
+
+
+void free_array2d(char **str)
+{
+    int i;
+
+    i = 0;
+
+    while(str[i])
+    {
+        free(str[i]);
+        i++;
+    }
+    free(str);
+}
+int take_rgb_color(char *str, t_map *map)
+{
+    char **tmp;
+    int colorvalue;
+    tmp = NULL;
+
+    tmp = ft_split(str,',');
+    if(tmp[0] != NULL && tmp[1] != NULL && tmp[2] != NULL)
+    {
+        if(!(0 <= ft_atoi(tmp[0]) && ft_atoi(tmp[0]) <= 255)
+            || !(0 <= ft_atoi(tmp[1]) && ft_atoi(tmp[1]) <= 255)
+            || !(0 <= ft_atoi(tmp[2]) && ft_atoi(tmp[2]) <= 255))
+        {
+            ft_err_mapcontrol("Girilen sayilar 0-255 arasinda değil !!!\n",map); // ft_err_msg;
+            exit(0);
+        }
+    }
+    else
+        ft_err_mapcontrol("renk kodlarinda eksik renk var! \n",map);
+    is_digit_color(tmp,map);
+    colorvalue = (ft_atoi(tmp[0]) << 16) + (ft_atoi(tmp[1]) << 8) + ft_atoi(tmp[2]);
+    free_array2d(tmp);
+    return colorvalue;
 }
 
 void map_size(t_map *map)
@@ -94,7 +145,7 @@ void check_name(char *name)
 
 int space_control(t_map *map, int i)
 {
-	char current_char;
+	//char current_char;
     int j;
 
 	j = 0;
@@ -148,7 +199,7 @@ int check_line_dir(char *map)
 int newline_control(t_map *map, int i) // satir icinde istenmeyenler varsa return 0 doner;
 {
 	int j;
-    char *str;
+   // char *str;
 
     
 	j = 0;
@@ -165,26 +216,42 @@ int newline_control(t_map *map, int i) // satir icinde istenmeyenler varsa retur
 
 int map_f_control(t_map *map, int i)
 {
+    char *str;
+
+    str = NULL;
     if((strncmp(map->map[i], "F ", 2) == 0) && (map->fflag != 1))
         {
             //burda devamini texture olarak alıp direction->1 2 3 4 diye yön verebiliriz ismail abi kızmaz ise
             //map->notexture = //map[i]. sinde 4. harften itibarini okuyan ve return eden bir fonksiyon;
+            str = color_path_handler(map->map[i]);
+            map->fcolor = take_rgb_color(str,map);
             map->fflag = 1;
             map->flagcount++;
+            free(str);
+            return 1;
         }
     else if((strncmp(map->map[i], "F", 1) == 0) && (map->fflag == 1))
         ft_err_mapcontrol(" \n Error! F den iki tane var burda programı bitir error mesaji ver",map);
+    return 0;
 }
 
 int map_c_control(t_map *map, int i)
 {
+    char *str;
+
+    str = NULL;
     if((strncmp(map->map[i], "C ", 2) == 0) && (map->cflag != 1))
         {
             //burda devamini texture olarak alıp direction->1 2 3 4 diye yön verebiliriz ismail abi kızmaz ise
             //map->notexture = //map[i]. sinde 4. harften itibarini okuyan ve return eden bir fonksiyon;
+            str = color_path_handler(map->map[i]);
+            map->ccolor = take_rgb_color(str,map);
             map->cflag = 1;
             map->flagcount++;
+            free(str);
+            return 1;
         }
     else if((strncmp(map->map[i], "C", 1) == 0) && (map->cflag == 1))
         ft_err_mapcontrol(" \n Error! C den iki tane var burda programı bitir error mesaji ver",map);
+    return 0;
 }

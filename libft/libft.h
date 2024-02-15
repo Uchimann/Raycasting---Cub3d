@@ -29,6 +29,9 @@ char		**free_malloc(char **tab, size_t i);
 int			word_count(char const *s, char c);
 char		**ft_split(char const *s, char c);
 char	*ft_strtrim(char const *str, char const *set);
+int			ft_atoi(const char *str);
+int			ft_isdigit(int c);
+
 
 // GET_NEXT_LINE
 # ifndef BUFFER_SIZE

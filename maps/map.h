@@ -18,6 +18,8 @@ typedef struct map
     char *direction;
     int fd;
 
+    int realmap_height;
+
     int playercount;
 
     int map_start;
@@ -29,11 +31,13 @@ typedef struct map
     char *wetexturepath;
 
     char **realmap;
-    
+    char **tmp_map;
 
     int pos_x;
     int pos_y;
 
+    int fcolor;
+    int ccolor;
     int noflag;
     int weflag;
     int eaflag;
@@ -59,12 +63,16 @@ char *texture_path_handler(char *str);
 void check_name(char *name);
 int newline_control(t_map *map, int i);
 int space_control(t_map *map, int i);
-char *texture_path_handler(char *str);
+char *color_path_handler(char *str);
 int check_line_dir(char *map);
 int map_sixthcontrol(t_map *map);
 void    mapread(t_map *map);
 int     ft_err_mapcontrol(char *str, t_map *map);
 void free_map(t_map *map);
 void map_size(t_map *map);
+int take_rgb_color(char *str, t_map *map);
+void is_digit_color(char **str,t_map *map);
+void free_array2d(char **str);
+void create_tmp_map(t_map *map);
 
 #endif

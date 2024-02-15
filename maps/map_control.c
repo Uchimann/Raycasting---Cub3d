@@ -5,21 +5,8 @@
 
 void free_map(t_map *map)
 {
-    int i;
 
-    i = 0;
-    while(map->map[i] != NULL)
-    {
-        free(map->map[i]);
-        i++;
-    }
-    free(map->map);
-    free(map->map_line);
-    free(map->sotexturepath);
-    free(map->notexturepath);
-    free(map->eatexturepath);
-    free(map->wetexturepath);
-
+    ft_err_mapcontrol("basariyla tamamlandi",map);
 
 }
 
@@ -123,7 +110,6 @@ int map_sixthcontrol(t_map *map)
 {
 	int	i;
     int j;
-	char *tmp;
 
 	i = 0;
 	while(map->mapheight > i && map->map[i])
@@ -140,21 +126,15 @@ int map_sixthcontrol(t_map *map)
         {
             map->if_flag = 1;
             j = i;
-            printf("---------------- = %d \n",i);
         }
         i++;
 	}
     
-    printf(" \n %d mapin flag countudur\n", map->flagcount);
     if(map->flagcount != 6)
-        ft_err_mapcontrol("map have not 6 direction programı kapat ",map);
+        ft_err_mapcontrol("map have not 6 direction programı kapat ", map);
 
-	if(newline_control(map,j) == 0)
-    {
-        ft_err_mapcontrol("\n direction aralarında newline veya space disinda birsey var burda hata mesaji ver ve programı kapat",map);
-        free_map(map);
-    }
-    printf("j nin degeri 14 olmali %d \n",j);
+    if(newline_control(map, j) == 0)
+        ft_err_mapcontrol("\n direction aralarında newline veya space disinda birsey var burda hata mesaji ver ve programı kapat", map);
     return j;
 }
 
@@ -171,11 +151,15 @@ void init_struct(t_map *map)
     map->pos_x = 0;
     map->pos_y = 0;
     map->playercount = 0;
+    map->ccolor = 0;
+    map->fcolor = 0;
+    map->realmap_height = 0;
     map->eatexturepath = NULL;
     map->wetexturepath = NULL;
     map->notexturepath = NULL;
     map->sotexturepath = NULL;
     map->realmap = NULL;
+    map->tmp_map = NULL;
 }
 
 
@@ -226,6 +210,20 @@ void read_real_map(t_map *map)
     map->realmap[j] = NULL;
 }
 
+void create_tmp_map(t_map *map)
+{
+    int j;
+
+    j = 0;
+    map->tmp_map = malloc((map->realmap_height ) * sizeof(char *) + 1);
+    while(map->realmap[j])
+    {
+        map->tmp_map[j] = ft_strdup(map->realmap[j]);
+        j++;
+    }
+    map->tmp_map[j] = NULL;
+}
+
 void check_real_map(t_map *map)
 {
     int i;
@@ -234,16 +232,14 @@ void check_real_map(t_map *map)
     i = 0;
     while(map->realmap[i])
     {
+        //printf("---%d---",i);
         j = 0;
         while(map->realmap[i][j])
         {
             if(map->realmap[i][j] != 'W' && map->realmap[i][j] != 'E' && map->realmap[i][j] != 'N'
                 && map->realmap[i][j] != 'S' && map->realmap[i][j] != '0' && map->realmap[i][j] != '1'
                 && map->realmap[i][j] != ' ')
-                {
-                    printf("hata mesaji ver programi kapat \n haritada istenmeyen seyler var \n");
-                    exit (0);
-                }
+                    ft_err_mapcontrol("hata mesaji ver programi kapat \n haritada istenmeyen seyler var \n",map);
             j++;
         }
         i++;
@@ -274,10 +270,39 @@ void check_real_map_counts(t_map *map)
     }
     if(map->playercount != 1)
     {
-        printf("player count fazla hata ver programi kapat! \n");
-        exit (0);
+        ft_err_mapcontrol("player count fazla veya eksik, hata ver programi kapat! \n",map);
+        //exit (0);
     }
 }
+
+void    path_finder(t_map *map, int y, int x)
+{
+    if (x < 0 || y < 0 || y >=map->realmap_height || \
+        map->tmp_map[y][x] == ' ' || map->tmp_map[y][x] == '\0')
+    {
+        ft_err_mapcontrol("Hatali map\n",map);
+        //free_all(map);
+        //exit(1);
+    }
+
+    else if (map->tmp_map[y][x] == '1')
+        return ;
+    map->tmp_map[y][x] = '1';
+    path_finder(map, y, x - 1);
+    path_finder(map, y - 1, x);
+    path_finder(map, y, x + 1);
+    path_finder(map, y + 1, x);
+}
+void find_hight_real_map(t_map *map)
+{
+    int i;
+
+    i = 0;
+    while(map->realmap[i])
+        i++;
+    map->realmap_height = i;
+}
+
 
 void map_control(t_map *map,char *name)
 {
@@ -289,10 +314,11 @@ void map_control(t_map *map,char *name)
     //check_sixth(map);
     mapread(map);
     map_size(map); 
-    //map in icindeki mapte ilk 6 'SO' 'NO' 'EA' 'WE' 'F' veya 'C' olmalı bunun kontrolü yapılcak
     init_struct(map);
+    printf ("buradaki mapheight == -> %d ", map->mapheight);
     directions_end = map_sixthcontrol(map);
-    // simdi burda directions endden itibaren oku ve sadece harita veya bosluklu satırlar veya newline olmalı
+    printf("fcolor --> %d",map->fcolor);
+    printf("ccolor --> %d",map->ccolor);
     skip_spaces(map,directions_end);
     printf("mapin startı asagiki satırdir \n %s \n *******************\n",map->map[map->map_start]);
     printf("directions_end = %d \n",directions_end);
@@ -300,6 +326,10 @@ void map_control(t_map *map,char *name)
     read_real_map(map);
     check_real_map(map);
     check_real_map_counts(map); // pos_x ve pos_y belirlendi artık realmapin son kontrolu kaldi
-
+    find_hight_real_map(map);
+    create_tmp_map(map);
+    printf("pos_y --> %d, pos_x --> %d \n",map->pos_y,map->pos_x);
+    //burda real mapin yüksekliğini bul
+    path_finder(map,map->pos_y,map->pos_x); // bu fonks sadece oyuncunun hareket edebileceiği yeri kontrol ediyor.
 
 }
