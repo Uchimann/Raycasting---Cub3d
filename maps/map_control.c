@@ -94,8 +94,9 @@ void mapread(t_map *map)
     }
     if(!map->map_line)
     {
-        printf("Error map\n");
-        free_map(map);
+        printf("Errrrrrrrrror map\n");
+        free(str);
+        free(map->map_line);
         exit(1);
     }
     //check_character(map);
@@ -361,7 +362,9 @@ void deneme(t_map *map)
         i++;
         free(line);
     }
-    //printf("\n");
+    map->map_buff[i] = NULL;
+    close(map->fd_buff);
+        //printf("\n");
 }
 
 void deneme2(t_map *map)
@@ -399,6 +402,20 @@ void deneme2(t_map *map)
     }
 }*/
 
+void newline_control2(t_map *map)
+{
+    int i;
+    
+    i = map->map_start_buff;
+    while(map->map_buff[i])
+    {
+        if(map->map_buff[i][0] == '\n')
+            ft_err_mapcontrol("Error: Map icerisinde newline var",map);
+        i++;
+    }
+}
+
+
 void map_control(t_map *map,char *name)
 {
     int directions_end;
@@ -427,8 +444,8 @@ void map_control(t_map *map,char *name)
     //printf("\n %s",map->map_buff[map->map_start_buff]);
     //printf("%d",map->map_start_buff);
     
-
-    exit(5);
+    newline_control2(map);
+   // write(1,"buraya kadar bir sikinti yok",28);
     read_real_map(map);
     check_real_map(map);
     check_real_map_counts(map); // pos_x ve pos_y belirlendi artık realmapin son kontrolu kaldi

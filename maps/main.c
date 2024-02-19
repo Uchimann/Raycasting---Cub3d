@@ -10,5 +10,7 @@ int main(int ac, char **av)
     }
     t_map map;
     map_control(&map,av[1]);
-    //free_map(&map);
+
+
+    free_map(&map);
 }
