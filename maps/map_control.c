@@ -141,13 +141,21 @@ int map_sixthcontrol(t_map *map)
 void init_struct(t_map *map)
 {
     map->cflag = 0;
+    map->cflag_buff = 0;
     map->eaflag = 0;
+    map->eaflag_buff = 0;
     map->flagcount = 0;
+    map->flagcount_buff = 0;
     map->weflag = 0;
+    map->weflag_buff = 0;
     map->noflag = 0;
+    map->noflag_buff = 0;
     map->soflag = 0;
+    map->soflag_buff = 0;
     map->if_flag = 0;
+    map->if_flag_buff = 0;
     map->map_start = 0;
+    map->map_start_buff = 0;
     map->pos_x = 0;
     map->pos_y = 0;
     map->playercount = 0;
@@ -160,8 +168,37 @@ void init_struct(t_map *map)
     map->sotexturepath = NULL;
     map->realmap = NULL;
     map->tmp_map = NULL;
+    map->map_buff = NULL;
 }
 
+void skip_spaces2(t_map *map, int end)
+{
+    //printf("\n%s\n",map->map[end]);
+    end++;
+    int i;
+
+    i = 0;
+    if(map->map_buff[end] != NULL)
+    {
+        while(map->map_buff[end])
+        {
+            i = 0;
+            while(map->map_buff[end][i] == ' ')
+                i++;
+            if(map->map_buff[end][i] == '\n')
+                end++;
+            else 
+            {
+                map->map_start_buff = end;
+                break;
+            }
+        }
+        if(!map->map_buff[end]) // mapin end'i nulla geldiği için while bittiyse
+            map->map_start_buff = end;
+    }
+    else
+        ft_err_mapcontrol("mapin son satirinda birsey yok",map);
+}
 
 void skip_spaces(t_map *map, int end)
 {
@@ -302,7 +339,65 @@ void find_hight_real_map(t_map *map)
         i++;
     map->realmap_height = i;
 }
+void deneme(t_map *map)
+{
+    char *line;
+    int i;
+    i = 0;
+    map->fd_buff = open(map->path, O_RDONLY);
+    if (map->fd == -1)
+    {
+        printf("Error open file\n");
+        exit(1);
+    }
+    map->map_buff = (char **)malloc(sizeof(char *) * (map->mapheight + 1));
+    while (1)
+    {
+        line = get_next_line(map->fd_buff);
+        if (!line)
+            break;
+        map->map_buff[i] = ft_strdup(line);
+       // printf("%s", map->map[i]);
+        i++;
+        free(line);
+    }
+    //printf("\n");
+}
 
+void deneme2(t_map *map)
+{
+    int i;
+
+    i = 0;
+
+  	while(map->map_buff[i])
+	{
+        map_so_control_buff(map,i);
+        map_no_control_buff(map,i);
+        map_ea_control_buff(map,i);
+        map_we_control_buff(map,i);
+        map_f_control_buff(map,i);
+        map_c_control_buff(map,i);
+
+        if(map->flagcount_buff == 6 && map->if_flag_buff == 0)
+        {
+            map->if_flag_buff = 1;
+            map->buff_endofflag = i;
+            break;
+        }
+        i++;
+	}
+}
+
+/*void fonskiyon3(t_map *map)
+{
+    map->buff_endofflag++;
+
+    while(map->map_buff[map->buff_endofflag])
+    {
+        check_spaces(map->)
+    }
+}*/
 
 void map_control(t_map *map,char *name)
 {
@@ -313,7 +408,7 @@ void map_control(t_map *map,char *name)
     map->path = name;
     //check_sixth(map);
     mapread(map);
-    map_size(map); 
+    map_size(map);
     init_struct(map);
     printf ("buradaki mapheight == -> %d ", map->mapheight);
     directions_end = map_sixthcontrol(map);
@@ -323,6 +418,17 @@ void map_control(t_map *map,char *name)
     printf("mapin startı asagiki satırdir \n %s \n *******************\n",map->map[map->map_start]);
     printf("directions_end = %d \n",directions_end);
     printf("mapin startı = %d \n",map->map_start);
+
+    deneme(map);
+    deneme2(map);
+    //printf("---------------------------------------");
+    //printf("%d",map->buff_endofflag);
+    skip_spaces2(map,map->buff_endofflag);
+    //printf("\n %s",map->map_buff[map->map_start_buff]);
+    //printf("%d",map->map_start_buff);
+    
+
+    exit(5);
     read_real_map(map);
     check_real_map(map);
     check_real_map_counts(map); // pos_x ve pos_y belirlendi artık realmapin son kontrolu kaldi
