@@ -2,21 +2,29 @@
 
 char *texture_path_handler(char *str)
 {
-    int i;
+    int i = 0;
     int j;
     char *ret_path;
-    /*
-    */
+    int count = 0;
 
+    while(str[i] && str[i] != ' ')
+        i++;
+    while(str[i] && str[i] == ' ')
+        i++;
+    
+    
    // ret_path = malloc(100 * sizeof(char *));
     j = 0;
-    i = 3;
+    //i = 3;
 
-    ret_path = malloc(100 * sizeof(char));
+    ret_path = malloc(ft_strlen(&str[i]) * sizeof(char));
     //ret_path = ft_substr(str,i,ft_strlen(str));
    // printf("ret_pathimiz --> %s ",ret_path);
     if(str[i] == '\0')
+    {
+        free(ret_path);
         return NULL;
+    }
     while(str[i] != '\0')
     {
         ret_path[j] = str[i];
@@ -45,7 +53,7 @@ char *color_path_handler(char *str)
     return ret_path;
 }
 
-void is_digit_color(char **str,t_map *map)
+void is_digit_color(char *tmp,char **str,t_map *map)
 {
     int i;
     int j;
@@ -57,7 +65,9 @@ void is_digit_color(char **str,t_map *map)
         while(str[i][j])
         {
             if(!ft_isdigit(str[i][j]))
-            {
+            {   
+                free(tmp);
+                free_array2d(str);
                 ft_err_mapcontrol("renkler sadece sayi olmali ! \n",map);
                 exit(1);
             }
@@ -86,7 +96,6 @@ int take_rgb_color(char *str, t_map *map)
     char **tmp;
     int colorvalue;
     tmp = NULL;
-
     tmp = ft_split(str,',');
     if(tmp[0] != NULL && tmp[1] != NULL && tmp[2] != NULL)
     {
@@ -94,18 +103,36 @@ int take_rgb_color(char *str, t_map *map)
             || !(0 <= ft_atoi(tmp[1]) && ft_atoi(tmp[1]) <= 255)
             || !(0 <= ft_atoi(tmp[2]) && ft_atoi(tmp[2]) <= 255))
         {
+            free_array2d(tmp);
+            free(str);
+            //free(tmp);
             ft_err_mapcontrol("Girilen sayilar 0-255 arasinda değil !!!\n",map); // ft_err_msg;
-            exit(0);
         }
     }
     else
-        ft_err_mapcontrol("renk kodlarinda eksik renk var! \n",map);
-    is_digit_color(tmp,map);
+        return(free_array2d(tmp),free(str),ft_err_mapcontrol("renk kodlarinda eksik renk var! \n",map));
+    if(count_comma(str) != 2)
+        return(free_array2d(tmp),free(str),ft_err_mapcontrol("renk kodlarinda eksik veya fazla renk var! \n",map));
+    is_digit_color(str,tmp,map);
     colorvalue = (ft_atoi(tmp[0]) << 16) + (ft_atoi(tmp[1]) << 8) + ft_atoi(tmp[2]);
     free_array2d(tmp);
     return colorvalue;
 }
+int count_comma(char *str)
+{
+    int i;
+    int count;
 
+    i = 0;
+    count = 0;
+    while(str[i])
+    {
+        if(str[i] == ',')
+            count++;
+        i++;
+    }
+    return count;
+}
 void map_size(t_map *map)
 {
 
@@ -231,7 +258,10 @@ int map_f_control(t_map *map, int i)
             return 1;
         }
     else if((strncmp(map->map[i], "F", 1) == 0) && (map->fflag == 1))
+    {
+        free(str);
         ft_err_mapcontrol(" \n Error! F den iki tane var burda programı bitir error mesaji ver",map);
+    }
     return 0;
 }
 
@@ -252,6 +282,10 @@ int map_c_control(t_map *map, int i)
             return 1;
         }
     else if((strncmp(map->map[i], "C", 1) == 0) && (map->cflag == 1))
+    {
+        free(str);
         ft_err_mapcontrol(" \n Error! C den iki tane var burda programı bitir error mesaji ver",map);
+    }
+    //free(str);
     return 0;
 }

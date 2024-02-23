@@ -5,7 +5,8 @@ SRCS = maps/*.c libft/*.c
 
 all: $(NAME)
 $(NAME):
-	$(CC) $(FLAGS) $(SRCS) -o $(NAME)
+	make -C ./minilibx-linux && mv ./minilibx-linux/libmlx.a .
+	$(CC) $(SRCS) -o $(NAME) libmlx.a -lXext -lX11 -lm 
 clean:
 	rm -f $(NAME)
 fclean: clean

@@ -435,6 +435,7 @@ void map_control(t_map *map,char *name)
     printf("mapin startı asagiki satırdir \n %s \n *******************\n",map->map[map->map_start]);
     printf("directions_end = %d \n",directions_end);
     printf("mapin startı = %d \n",map->map_start);
+    
 
     deneme(map);
     deneme2(map);
@@ -451,6 +452,7 @@ void map_control(t_map *map,char *name)
     check_real_map_counts(map); // pos_x ve pos_y belirlendi artık realmapin son kontrolu kaldi
     find_hight_real_map(map);
     create_tmp_map(map);
+    //check_files()
     printf("pos_y --> %d, pos_x --> %d \n",map->pos_y,map->pos_x);
     //burda real mapin yüksekliğini bul
     path_finder(map,map->pos_y,map->pos_x); // bu fonks sadece oyuncunun hareket edebileceiği yeri kontrol ediyor.

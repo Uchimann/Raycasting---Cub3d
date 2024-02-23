@@ -4,6 +4,21 @@
 #include <string.h>
 #include "map.h"
 
+
+int ft_err(char *str, t_game *game)
+{
+    ft_err_mapcontrol(str,game->map);
+    if(game->image != NULL)
+        free(game->image);
+    if(game->NO != NULL)    
+        free(game->NO);
+    if(game->SO != NULL)
+        free(game->SO);
+    if(game->WE != NULL)
+        free(game->WE);
+    if(game->EA != NULL)
+        free(game->EA);
+}
 int ft_err_mapcontrol(char *str, t_map *map)
 {   
     if(map->map_line != NULL)
@@ -20,7 +35,7 @@ int ft_err_mapcontrol(char *str, t_map *map)
       //  free(map->direction);
     if(map->eatexturepath != NULL)
         free(map->eatexturepath);
-    if(map->notexturepath != NULL)
+    if(map->notexturepath!= NULL)
         free(map->notexturepath);
     if(map->sotexturepath != NULL)
         free(map->sotexturepath);
