@@ -27,9 +27,9 @@ void	ft_mlx(t_game *g, int a, int b)
 	if (!g->image->addr)
 		return (ft_err("image addr malloc acilmadi",g));
 	//printf("YYYYYYYYYYYYYYYYYYYYYYYYYYY\nNO: %s\n",g->map->notexturepath);
-	//printf("SO: %s\n",g->map->sotexturepath);
-	//printf("WE: %s\n",g->map->wetexturepath);
-	//printf("EA: %s\n",g->map->eatexturepath);
+	printf("SO: %s\n",g->map->sotexturepath);
+	printf("WE: %s\n",g->map->wetexturepath);
+	printf("EA: %s\n",g->map->eatexturepath);
 	//printf("%d\n",b);
 	g->NO->image = mlx_xpm_file_to_image(g->mlx, g->map->notexturepath, &b, &b);
 	g->SO->image = mlx_xpm_file_to_image(g->mlx, g->map->sotexturepath, &b, &b);
@@ -213,24 +213,25 @@ void	calculate_hit_distance(t_game *game)
 {
 	int	a;
 
-	while (1)
+	while(1)
 	{
 		a = !(game->sideDistX < game->sideDistY);
-		if(a == 0)
+		if(a==0)
 		{
 			game->sideDistX += game->deltaDistX;
 			game->mapX += game->stepX;
 			game->side = a;
 		}
-		else
+		else if (a==1)
 		{
 			game->sideDistY += game->deltaDistY;
 			game->mapY += game->stepY;
 			game->side = a;
 		}
-		if (game->map->realmap[game->mapY][game->mapX] == '1')
-			break ;
+		if (game->map->realmap[(int)game->posX][(int)game->posY] == '1')
+			break;
 	}
+	write(1,"YYYYYYYYYYYYYYYYYYYYYYYY",24);
 }
 void	calculate_wall_height_x(t_game *game)
 {
@@ -354,5 +355,5 @@ int main(int ac, char **av)
 	mlx_loop_hook(game.mlx, &gamefunc, &game);
 	mlx_loop(game.mlx);
     free_map(&map);
-
+	return 0;
 }

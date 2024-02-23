@@ -427,14 +427,14 @@ void map_control(t_map *map,char *name)
     mapread(map);
     map_size(map);
     init_struct(map);
-    printf ("buradaki mapheight == -> %d ", map->mapheight);
+   // printf ("buradaki mapheight == -> %d ", map->mapheight);
     directions_end = map_sixthcontrol(map);
-    printf("fcolor --> %d",map->fcolor);
-    printf("ccolor --> %d",map->ccolor);
+    //printf("fcolor --> %d",map->fcolor);
+    //printf("ccolor --> %d",map->ccolor);
     skip_spaces(map,directions_end);
-    printf("mapin startı asagiki satırdir \n %s \n *******************\n",map->map[map->map_start]);
-    printf("directions_end = %d \n",directions_end);
-    printf("mapin startı = %d \n",map->map_start);
+    //printf("mapin startı asagiki satırdir \n %s \n *******************\n",map->map[map->map_start]);
+    //printf("directions_end = %d \n",directions_end);
+    //printf("mapin startı = %d \n",map->map_start);
     
 
     deneme(map);

@@ -1,5 +1,5 @@
 NO img/path_to_the_north_texture
-SO img/path_to/the_south_texture
+SO img/path_to_the_south_texture
 WE img/path_to_the_west_texture
 EA img/path_to_the_east_texture
 
@@ -16,6 +16,7 @@ C 225,30,4
 
 
 11111111111
-1000000W111
+10000000011
+100000S0001
 11111100001
 11111111111
