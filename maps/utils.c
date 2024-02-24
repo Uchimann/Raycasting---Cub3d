@@ -18,7 +18,12 @@ int ft_err(char *str, t_game *game)
         free(game->WE);
     if(game->EA != NULL)
         free(game->EA);
+    if(game->mlx != NULL)
+        free(game->mlx);
+    if(game->mlxWin != NULL)
+        free(game->mlxWin);
 }
+
 int ft_err_mapcontrol(char *str, t_map *map)
 {   
     if(map->map_line != NULL)

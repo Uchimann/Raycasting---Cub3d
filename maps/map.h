@@ -9,7 +9,7 @@
 #include "../libft/libft.h"
 #include "map.h"
 #include <stdbool.h>
-#include "../minilibx-linux/mlx.h"
+#include "../minilibx/mlx.h"
 #include <math.h>
 
 //# define SW 640
@@ -41,7 +41,7 @@ typedef struct s_map
     int realmap_height;
 
     int playercount;
-
+    char pov;
     int map_start;
     int map_start_buff;
     char *map_line;
@@ -168,5 +168,7 @@ void create_tmp_map(t_map *map);
 void deneme(t_map *map);
 void deneme2(t_map *map);
 int count_comma(char *str);
+void	movement_2(t_game *game);
+void	movement_(t_game *game);
 
 #endif

@@ -301,6 +301,7 @@ void check_real_map_counts(t_map *map)
                 map->playercount++;
                 map->pos_x = j;
                 map->pos_y = i;
+                map->pov = map->realmap[i][j];
             }
             j++;
         }

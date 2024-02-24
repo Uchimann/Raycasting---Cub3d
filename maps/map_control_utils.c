@@ -17,7 +17,7 @@ char *texture_path_handler(char *str)
     j = 0;
     //i = 3;
 
-    ret_path = malloc(ft_strlen(&str[i]) * sizeof(char));
+    ret_path = malloc((ft_strlen(&str[i]) * sizeof(char)) + 1);
     //ret_path = ft_substr(str,i,ft_strlen(str));
    // printf("ret_pathimiz --> %s ",ret_path);
     if(str[i] == '\0')
@@ -31,25 +31,36 @@ char *texture_path_handler(char *str)
         i++;
         j++;
     }
+    ret_path[j] = '\0';
     return ret_path;
 }
 char *color_path_handler(char *str)
 {
-    int i;
+    int i = 0;
     int j;
     char *ret_path;
+    int count = 0;
 
+    while(str[i] && str[i] != ' ')
+        i++;
+    while(str[i] && str[i] == ' ')
+        i++;
+
+    //ret_path = malloc(100 * sizeof(char));
     j = 0;
-    i = 2;
-
-    ret_path = malloc(100 * sizeof(char));
-
+    ret_path = malloc((ft_strlen(&str[i]) * sizeof(char)) + 1);
+    if(str[i] == '\0')
+    {
+        free(ret_path);
+        return NULL;
+    }
     while(str[i] != '\0')
     {
         ret_path[j] = str[i];
         i++;
         j++;
     }
+    ret_path[j] = '\0';
     return ret_path;
 }
 
@@ -96,6 +107,7 @@ int take_rgb_color(char *str, t_map *map)
     char **tmp;
     int colorvalue;
     tmp = NULL;
+    printf("%s\n",str);
     tmp = ft_split(str,',');
     if(tmp[0] != NULL && tmp[1] != NULL && tmp[2] != NULL)
     {
@@ -250,6 +262,7 @@ int map_f_control(t_map *map, int i)
         {
             //burda devamini texture olarak alıp direction->1 2 3 4 diye yön verebiliriz ismail abi kızmaz ise
             //map->notexture = //map[i]. sinde 4. harften itibarini okuyan ve return eden bir fonksiyon;
+            printf("f deki mapin isi -> %s\n",map->map[i]);
             str = color_path_handler(map->map[i]);
             map->fcolor = take_rgb_color(str,map);
             map->fflag = 1;
@@ -274,7 +287,9 @@ int map_c_control(t_map *map, int i)
         {
             //burda devamini texture olarak alıp direction->1 2 3 4 diye yön verebiliriz ismail abi kızmaz ise
             //map->notexture = //map[i]. sinde 4. harften itibarini okuyan ve return eden bir fonksiyon;
+            printf("mapin isi -> %s",map->map[i]);
             str = color_path_handler(map->map[i]);
+            printf("buradaki str -> %s\n",str);
             map->ccolor = take_rgb_color(str,map);
             map->cflag = 1;
             map->flagcount++;

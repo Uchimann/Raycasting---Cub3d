@@ -8,7 +8,7 @@ static void	ft_mlx2(t_game *g, int c)
 	g->WE->addr = (int *)mlx_get_data_addr(g->WE->image, &c, &c, &c);
 	g->EA->addr = (int *)mlx_get_data_addr(g->EA->image, &c, &c, &c);
 	if (!g->NO->addr || !g->SO->addr || !g->WE->addr || !g->EA->addr)
-		return (ft_err("dosya okunamadi",g));
+		return (void)(ft_err("dosya okunamadi",g));
 }
 
 void	ft_mlx(t_game *g, int a, int b)
@@ -19,14 +19,15 @@ void	ft_mlx(t_game *g, int a, int b)
 	g->WE = malloc(sizeof(t_image));
 	g->EA = malloc(sizeof(t_image));
 	if (!g->image || !g->NO || !g->SO || !g->WE || !g->EA)
-		return (ft_err("Yön malloc acilmadi",g));
+		return (void)(ft_err("Yön malloc acilmadi",g));
 	g->image->image = mlx_new_image(g->mlx, WIDTH, HEIGHT);
 	if (!g->image->image)
-		return (ft_err("image malloc acilmadi",g));
+		return (void)(ft_err("image malloc acilmadi",g));
 	g->image->addr = (int *)mlx_get_data_addr(g->image->image, &a, &a, &a);
 	if (!g->image->addr)
-		return (ft_err("image addr malloc acilmadi",g));
+		return (void)(ft_err("image addr malloc acilmadi",g));
 	//printf("YYYYYYYYYYYYYYYYYYYYYYYYYYY\nNO: %s\n",g->map->notexturepath);
+	write(1,"\n2--------------------------\n",29);
 	printf("SO: %s\n",g->map->sotexturepath);
 	printf("WE: %s\n",g->map->wetexturepath);
 	printf("EA: %s\n",g->map->eatexturepath);
@@ -36,18 +37,71 @@ void	ft_mlx(t_game *g, int a, int b)
 	g->WE->image = mlx_xpm_file_to_image(g->mlx, g->map->wetexturepath, &b, &b);
 	g->EA->image = mlx_xpm_file_to_image(g->mlx, g->map->eatexturepath, &b, &b);
 	if (!g->NO->image || !g->SO->image || !g->WE->image || !g->EA->image)
-		return (ft_err("dosya acilmadi",g));
+		return (void)(ft_err("dosya acilmadi",g));
 	ft_mlx2(g, b);
+}
+
+static bool	east_west(t_game *game)
+{
+	if (game->map->pov == 'W')
+	{
+		game->dirX = -1.0;
+		game->dirY = 0.0;
+		game->planeX = 0.0;
+		game->planeY = -0.66;
+		return (true);
+	}
+	else if (game->map->pov == 'E')
+	{
+		game->dirX = 1.0;
+		game->dirY = 0.0;
+		game->planeX = 0.0;
+		game->planeY = 0.66;
+		return (true);
+	}
+	return (false);
+}
+
+static bool	south_north(t_game *game)
+{
+	if (game->map->pov == 'S')
+	{
+		game->dirX = 0;
+		game->dirY = 1;
+		game->planeX = -0.66;
+		game->planeY = 0;
+		return (true);
+	}
+	else if (game->map->pov == 'N')
+	{
+		game->dirX = 0;
+		game->dirY = -1.00;
+		game->planeX = 0.66;
+		game->planeY = 0;
+		return (true);
+	}
+	return (false);
+}
+
+bool	check_player(t_game *game)
+{
+	if (east_west(game))
+		return (true);
+	if (south_north(game))
+		return (true);
+	return (false);
 }
 
 void	ray_init(t_game *game)
 {
-	game->posX = game->map->pos_y + 0.5;
-	game->posY = game->map->pos_x + 0.5;
-	game->dirX = 0;
-	game->dirY = -1;
-	game->planeX = 0.66;
-	game->planeY = 0;
+	if (!check_player(game))
+		return (void)(ft_err("Error in check player \n",game));
+	game->posX = game->map->pos_x + 0.5;
+	game->posY = game->map->pos_y + 0.5;
+	/*game->dirX = 0;
+	game->dirY = 1;
+	game->planeX = -0.66;
+	game->planeY = 0;*/
 	game->speed = 0.08;
 	game->rspeed = 0.04;
 	game->w = false;
@@ -213,6 +267,8 @@ void	calculate_hit_distance(t_game *game)
 {
 	int	a;
 
+	//write(1,"YYYYYYYYYYYYYYYYYYYYYYYY",24);
+
 	while(1)
 	{
 		a = !(game->sideDistX < game->sideDistY);
@@ -228,10 +284,13 @@ void	calculate_hit_distance(t_game *game)
 			game->mapY += game->stepY;
 			game->side = a;
 		}
-		if (game->map->realmap[(int)game->posX][(int)game->posY] == '1')
+		if (game->map->realmap[(int)game->mapY][(int)game->mapX] == '1')
+		{
+			//write(1,"YYYYYYYYYYYYYYYYYYYYYYYY",24);
 			break;
+		}
 	}
-	write(1,"YYYYYYYYYYYYYYYYYYYYYYYY",24);
+	//write(1,"YYYYYYYYYYYYYYYYYYYYYYYY",24);
 }
 void	calculate_wall_height_x(t_game *game)
 {
@@ -275,7 +334,7 @@ void	calculate_wall_height(t_game *game)
 {
 	if (game->side == 0)
 		calculate_wall_height_x(game);
-	else
+	else if(game->side == 1)
 		calculate_wall_height_y(game);
 }
 
@@ -283,7 +342,7 @@ void	render_column(t_game *game, int x, int y)
 {
 	while (++y < HEIGHT)
 	{
-		game->texX = (int)game->texPos;
+		game->texY = (int)game->texPos;
 		if (y < game->drawStart)
 			game->image->addr[y * WIDTH + x] = game->map->ccolor;
 		else if (y > game->drawEnd)
@@ -353,7 +412,9 @@ int main(int ac, char **av)
 	mlx_hook(game.mlxWin, 3, 1L << 1, move_release, &game);
 	mlx_hook(game.mlxWin, 17, 1L << 17, exit_mlx, &game);
 	mlx_loop_hook(game.mlx, &gamefunc, &game);
+	write(1,"\n--------------------------\n",28);
 	mlx_loop(game.mlx);
+	system("leaks");
     free_map(&map);
 	return 0;
 }
