@@ -5,7 +5,7 @@ char *texture_path_handler(char *str)
     int i = 0;
     int j;
     char *ret_path;
-    int count = 0;
+   // int count = 0;
 
     while(str[i] && str[i] != ' ')
         i++;
@@ -39,7 +39,7 @@ char *color_path_handler(char *str)
     int i = 0;
     int j;
     char *ret_path;
-    int count = 0;
+  //  int count = 0;
 
     while(str[i] && str[i] != ' ')
         i++;

@@ -174,6 +174,7 @@ void	movement(t_game *game)
 	}
 	movement_2(game);
 }
+
 void	movement_2(t_game *game)
 {
 	if (game->a)
@@ -195,6 +196,7 @@ void	movement_2(t_game *game)
 			game->posY += game->planeY * game->speed;
 	}
 }
+
 void	rotate(t_game *g, double dir, double plane)
 {
 	if (g->right)
@@ -414,7 +416,7 @@ int main(int ac, char **av)
 	mlx_loop_hook(game.mlx, &gamefunc, &game);
 	write(1,"\n--------------------------\n",28);
 	mlx_loop(game.mlx);
-	system("leaks");
+	//system("leaks");
     free_map(&map);
 	return 0;
 }

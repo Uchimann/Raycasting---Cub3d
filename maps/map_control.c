@@ -298,9 +298,11 @@ void check_real_map_counts(t_map *map)
             if(map->realmap[i][j] == 'N' || map->realmap[i][j] == 'S'
             || map->realmap[i][j] == 'E' || map->realmap[i][j] == 'W')
             {
+                //exit(0);
                 map->playercount++;
                 map->pos_x = j;
                 map->pos_y = i;
+                //printf("****************%d\n", map->pos_x );
                 map->pov = map->realmap[i][j];
             }
             j++;
@@ -445,7 +447,6 @@ void map_control(t_map *map,char *name)
     skip_spaces2(map,map->buff_endofflag);
     //printf("\n %s",map->map_buff[map->map_start_buff]);
     //printf("%d",map->map_start_buff);
-    
     newline_control2(map);
    // write(1,"buraya kadar bir sikinti yok",28);
     read_real_map(map);
