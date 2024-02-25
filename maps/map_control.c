@@ -386,7 +386,7 @@ void deneme2(t_map *map)
         map_c_control_buff(map,i);
 
         if(map->flagcount_buff == 6 && map->if_flag_buff == 0)
-        {
+        {   
             map->if_flag_buff = 1;
             map->buff_endofflag = i;
             break;
@@ -404,6 +404,25 @@ void deneme2(t_map *map)
         check_spaces(map->)
     }
 }*/
+
+void check_last_line(t_map *map)
+{
+    int i;
+    int j;
+
+    i = 0;
+    j = 0;
+    while(map->map_buff[i] && map->map_buff[i][j])
+        i++;
+    if(map->map_buff[i - 1])
+        while(map->map_buff[i - 1][j] != '\n')
+            j++;
+    //printf("%c",map->map_buff[i - 1][j]);
+    if(map->map_buff[i - 1][j] != '\n')
+        return ;
+    if(map->map_buff[i - 1][j] != '\n')
+        ft_err_mapcontrol("Error: Map son satirda bir newline bekler",map);
+}
 
 void newline_control2(t_map *map)
 {
@@ -442,6 +461,8 @@ void map_control(t_map *map,char *name)
 
     deneme(map);
     deneme2(map);
+    check_last_line(map);
+    write(1,"buraya kadar bir sikinti yok",28);
     //printf("---------------------------------------");
     //printf("%d",map->buff_endofflag);
     skip_spaces2(map,map->buff_endofflag);
