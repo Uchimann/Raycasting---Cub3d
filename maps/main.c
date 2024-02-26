@@ -392,6 +392,10 @@ int	gamefunc(t_game *game)
 	return (0);
 }*/
 
+
+
+// c nin yanı boş olunca seg fault
+
 int main(int ac, char **av)
 {
     if(ac != 2)

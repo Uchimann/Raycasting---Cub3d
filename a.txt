@@ -1,0 +1,153 @@
+==18314== Memcheck, a memory error detector
+==18314== Copyright (C) 2002-2022, and GNU GPL'd, by Julian Seward et al.
+==18314== Using Valgrind-3.21.0-d97fed7c3e-20230428 and LibVEX; rerun with -h for copyright info
+==18314== Command: ./cub3d maps/one.cub
+==18314== Parent PID: 15668
+==18314== 
+--18314-- 
+--18314-- Valgrind options:
+--18314--    -s
+--18314--    --leak-check=full
+--18314--    --show-leak-kinds=all
+--18314--    --track-origins=yes
+--18314--    -v
+--18314--    --log-file=a.txt
+--18314-- Contents of /proc/version:
+--18314--   Linux version 6.5.0-17-generic (buildd@lcy02-amd64-034) (x86_64-linux-gnu-gcc-13 (Ubuntu 13.2.0-4ubuntu3) 13.2.0, GNU ld (GNU Binutils for Ubuntu) 2.41) #17-Ubuntu SMP PREEMPT_DYNAMIC Thu Jan 11 14:01:59 UTC 2024
+--18314-- 
+--18314-- Arch and hwcaps: AMD64, LittleEndian, amd64-cx16-lzcnt-rdtscp-sse3-ssse3-avx-avx2-bmi-f16c-rdrand-rdseed
+--18314-- Page sizes: currently 4096, max supported 4096
+--18314-- Valgrind library directory: /usr/libexec/valgrind
+--18314-- Reading syms from /home/ismail/Masaüstü/raycastson/cub3d
+--18314-- Reading syms from /usr/lib/x86_64-linux-gnu/ld-linux-x86-64.so.2
+--18314--   Considering /usr/lib/debug/.build-id/78/ffe99ed77a37ae9416f1530f9110188897cf80.debug ..
+--18314--   .. build-id is valid
+--18314-- Reading syms from /usr/libexec/valgrind/memcheck-amd64-linux
+--18314--    object doesn't have a symbol table
+--18314--    object doesn't have a dynamic symbol table
+--18314-- Scheduler: using generic scheduler lock implementation.
+--18314-- Reading suppressions file: /usr/libexec/valgrind/default.supp
+==18314== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-18314-by-ismail-on-???
+==18314== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-18314-by-ismail-on-???
+==18314== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-18314-by-ismail-on-???
+==18314== 
+==18314== TO CONTROL THIS PROCESS USING vgdb (which you probably
+==18314== don't want to do, unless you know exactly what you're doing,
+==18314== or are doing some strange experiment):
+==18314==   /usr/bin/vgdb --pid=18314 ...command...
+==18314== 
+==18314== TO DEBUG THIS PROCESS USING GDB: start GDB like this
+==18314==   /path/to/gdb ./cub3d
+==18314== and then give GDB the following command
+==18314==   target remote | /usr/bin/vgdb --pid=18314
+==18314== --pid is optional if only one valgrind process is running
+==18314== 
+--18314-- REDIR: 0x4027dc0 (ld-linux-x86-64.so.2:strlen) redirected to 0x580c1112 (???)
+--18314-- REDIR: 0x4026570 (ld-linux-x86-64.so.2:index) redirected to 0x580c112c (???)
+--18314-- Reading syms from /usr/libexec/valgrind/vgpreload_core-amd64-linux.so
+--18314--    object doesn't have a symbol table
+--18314-- Reading syms from /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so
+--18314--    object doesn't have a symbol table
+==18314== WARNING: new redirection conflicts with existing -- ignoring it
+--18314--     old: 0x04027dc0 (strlen              ) R-> (0000.0) 0x580c1112 ???
+--18314--     new: 0x04027dc0 (strlen              ) R-> (2007.0) 0x0484bfc0 strlen
+--18314-- REDIR: 0x40267a0 (ld-linux-x86-64.so.2:strcmp) redirected to 0x484d0e0 (strcmp)
+--18314-- REDIR: 0x4025bd0 (ld-linux-x86-64.so.2:mempcpy) redirected to 0x4850ed0 (mempcpy)
+--18314-- Reading syms from /usr/lib/x86_64-linux-gnu/libc.so.6
+--18314--   Considering /usr/lib/debug/.build-id/6a/981b07a3731293c24c10a21397416d3c3d52ed.debug ..
+--18314--   .. build-id is valid
+--18314-- REDIR: 0x4027f60 (ld-linux-x86-64.so.2:strncmp) redirected to 0x484c910 (strncmp)
+--18314-- REDIR: 0x4917900 (libc.so.6:strnlen) redirected to 0x483c1c0 (_vgnU_ifunc_wrapper)
+--18314-- REDIR: 0x4917990 (libc.so.6:strpbrk) redirected to 0x483c1c0 (_vgnU_ifunc_wrapper)
+--18314-- REDIR: 0x4915a10 (libc.so.6:strcmp) redirected to 0x483c1c0 (_vgnU_ifunc_wrapper)
+--18314-- REDIR: 0x492eb20 (libc.so.6:wcsnlen) redirected to 0x483c1c0 (_vgnU_ifunc_wrapper)
+--18314-- REDIR: 0x4914b90 (libc.so.6:memset) redirected to 0x483c1c0 (_vgnU_ifunc_wrapper)
+--18314-- REDIR: 0x492e2b0 (libc.so.6:wcslen) redirected to 0x483c1c0 (_vgnU_ifunc_wrapper)
+--18314-- REDIR: 0x49a0430 (libc.so.6:__memcpy_chk) redirected to 0x483c1c0 (_vgnU_ifunc_wrapper)
+--18314-- REDIR: 0x4914b00 (libc.so.6:memrchr) redirected to 0x483c1c0 (_vgnU_ifunc_wrapper)
+--18314-- REDIR: 0x4914070 (libc.so.6:memcpy@@GLIBC_2.14) redirected to 0x483c1c0 (_vgnU_ifunc_wrapper)
+--18314-- REDIR: 0x492d020 (libc.so.6:wcschr) redirected to 0x483c1c0 (_vgnU_ifunc_wrapper)
+--18314-- REDIR: 0x4915900 (libc.so.6:index) redirected to 0x483c1c0 (_vgnU_ifunc_wrapper)
+--18314-- REDIR: 0x49179c0 (libc.so.6:rindex) redirected to 0x483c1c0 (_vgnU_ifunc_wrapper)
+--18314-- REDIR: 0x492d0d0 (libc.so.6:wcscmp) redirected to 0x483c1c0 (_vgnU_ifunc_wrapper)
+--18314-- REDIR: 0x4914db0 (libc.so.6:stpncpy) redirected to 0x483c1c0 (_vgnU_ifunc_wrapper)
+--18314-- REDIR: 0x493aeb0 (libc.so.6:wmemchr) redirected to 0x483c1c0 (_vgnU_ifunc_wrapper)
+--18314-- REDIR: 0x49177b0 (libc.so.6:strncmp) redirected to 0x483c1c0 (_vgnU_ifunc_wrapper)
+--18314-- REDIR: 0x4914e10 (libc.so.6:strcasecmp) redirected to 0x483c1c0 (_vgnU_ifunc_wrapper)
+--18314-- REDIR: 0x4916ba0 (libc.so.6:strcspn) redirected to 0x483c1c0 (_vgnU_ifunc_wrapper)
+--18314-- REDIR: 0x492e0a0 (libc.so.6:wcscpy) redirected to 0x483c1c0 (_vgnU_ifunc_wrapper)
+--18314-- REDIR: 0x4915890 (libc.so.6:strcat) redirected to 0x483c1c0 (_vgnU_ifunc_wrapper)
+--18314-- REDIR: 0x49176b0 (libc.so.6:strncasecmp_l) redirected to 0x483c1c0 (_vgnU_ifunc_wrapper)
+--18314-- REDIR: 0x4915980 (libc.so.6:strchrnul) redirected to 0x483c1c0 (_vgnU_ifunc_wrapper)
+--18314-- REDIR: 0x4913f80 (libc.so.6:bcmp) redirected to 0x483c1c0 (_vgnU_ifunc_wrapper)
+--18314-- REDIR: 0x4916b30 (libc.so.6:strcpy) redirected to 0x483c1c0 (_vgnU_ifunc_wrapper)
+--18314-- REDIR: 0x4914eb0 (libc.so.6:strcasecmp_l) redirected to 0x483c1c0 (_vgnU_ifunc_wrapper)
+--18314-- REDIR: 0x4917580 (libc.so.6:strlen) redirected to 0x483c1c0 (_vgnU_ifunc_wrapper)
+--18314-- REDIR: 0x4917850 (libc.so.6:strncpy) redirected to 0x483c1c0 (_vgnU_ifunc_wrapper)
+--18314-- REDIR: 0x493af30 (libc.so.6:wmemcmp) redirected to 0x483c1c0 (_vgnU_ifunc_wrapper)
+--18314-- REDIR: 0x49a0550 (libc.so.6:__memmove_chk) redirected to 0x483c1c0 (_vgnU_ifunc_wrapper)
+==18314== WARNING: new redirection conflicts with existing -- ignoring it
+--18314--     old: 0x049e56d0 (__memcpy_chk_avx_una) R-> (2030.0) 0x04850fd0 __memcpy_chk
+--18314--     new: 0x049e56d0 (__memcpy_chk_avx_una) R-> (2024.0) 0x04850940 __memmove_chk
+--18314-- REDIR: 0x4914d40 (libc.so.6:stpcpy) redirected to 0x483c1c0 (_vgnU_ifunc_wrapper)
+--18314-- REDIR: 0x49148c0 (libc.so.6:memmove) redirected to 0x483c1c0 (_vgnU_ifunc_wrapper)
+==18314== Preferring higher priority redirection:
+--18314--     old: 0x049e5700 (__memcpy_avx_unalign) R-> (2018.0) 0x0484e4c0 __memcpy_avx_unaligned_erms
+--18314--     new: 0x049e5700 (__memcpy_avx_unalign) R-> (2018.1) 0x0484ff60 memmove
+--18314-- REDIR: 0x4913f00 (libc.so.6:memchr) redirected to 0x483c1c0 (_vgnU_ifunc_wrapper)
+--18314-- REDIR: 0x4917b80 (libc.so.6:strspn) redirected to 0x483c1c0 (_vgnU_ifunc_wrapper)
+--18314-- REDIR: 0x49149e0 (libc.so.6:mempcpy) redirected to 0x483c1c0 (_vgnU_ifunc_wrapper)
+--18314-- REDIR: 0x4917610 (libc.so.6:strncasecmp) redirected to 0x483c1c0 (_vgnU_ifunc_wrapper)
+--18314-- REDIR: 0x49ea2f0 (libc.so.6:__strrchr_avx2) redirected to 0x484b9a0 (rindex)
+--18314-- REDIR: 0x49e8440 (libc.so.6:__strlen_avx2) redirected to 0x484bea0 (strlen)
+--18314-- REDIR: 0x4910130 (libc.so.6:malloc) redirected to 0x48457b0 (malloc)
+--18314-- REDIR: 0x4910800 (libc.so.6:free) redirected to 0x48480a0 (free)
+--18314-- REDIR: 0x49e7aa0 (libc.so.6:__strchrnul_avx2) redirected to 0x48509b0 (strchrnul)
+--18314-- REDIR: 0x49e5700 (libc.so.6:__memcpy_avx_unaligned_erms) redirected to 0x484ff60 (memmove)
+--18314-- REDIR: 0x49e9520 (libc.so.6:__strncmp_avx2) redirected to 0x484c730 (strncmp)
+--18314-- REDIR: 0x49e56c0 (libc.so.6:__mempcpy_avx_unaligned_erms) redirected to 0x4850ad0 (mempcpy)
+==18314== Invalid write of size 8
+==18314==    at 0x109B05: create_tmp_map (in /home/ismail/Masaüstü/raycastson/cub3d)
+==18314==    by 0x10A495: map_control (in /home/ismail/Masaüstü/raycastson/cub3d)
+==18314==    by 0x109320: main (in /home/ismail/Masaüstü/raycastson/cub3d)
+==18314==  Address 0x4a7f608 is 72 bytes inside a block of size 73 alloc'd
+==18314==    at 0x4845828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==18314==    by 0x109A88: create_tmp_map (in /home/ismail/Masaüstü/raycastson/cub3d)
+==18314==    by 0x10A495: map_control (in /home/ismail/Masaüstü/raycastson/cub3d)
+==18314==    by 0x109320: main (in /home/ismail/Masaüstü/raycastson/cub3d)
+==18314== 
+==18314== Conditional jump or move depends on uninitialised value(s)
+==18314==    at 0x10AB84: free_array2d (in /home/ismail/Masaüstü/raycastson/cub3d)
+==18314==    by 0x10BAF5: ft_err_mapcontrol (in /home/ismail/Masaüstü/raycastson/cub3d)
+==18314==    by 0x109370: free_map (in /home/ismail/Masaüstü/raycastson/cub3d)
+==18314==    by 0x10932F: main (in /home/ismail/Masaüstü/raycastson/cub3d)
+==18314== 
+==18314== 
+==18314== HEAP SUMMARY:
+==18314==     in use at exit: 0 bytes in 0 blocks
+==18314==   total heap usage: 219 allocs, 219 frees, 14,734 bytes allocated
+==18314== 
+==18314== All heap blocks were freed -- no leaks are possible
+==18314== 
+==18314== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 0 from 0)
+==18314== 
+==18314== 1 errors in context 1 of 2:
+==18314== Conditional jump or move depends on uninitialised value(s)
+==18314==    at 0x10AB84: free_array2d (in /home/ismail/Masaüstü/raycastson/cub3d)
+==18314==    by 0x10BAF5: ft_err_mapcontrol (in /home/ismail/Masaüstü/raycastson/cub3d)
+==18314==    by 0x109370: free_map (in /home/ismail/Masaüstü/raycastson/cub3d)
+==18314==    by 0x10932F: main (in /home/ismail/Masaüstü/raycastson/cub3d)
+==18314== 
+==18314== 
+==18314== 1 errors in context 2 of 2:
+==18314== Invalid write of size 8
+==18314==    at 0x109B05: create_tmp_map (in /home/ismail/Masaüstü/raycastson/cub3d)
+==18314==    by 0x10A495: map_control (in /home/ismail/Masaüstü/raycastson/cub3d)
+==18314==    by 0x109320: main (in /home/ismail/Masaüstü/raycastson/cub3d)
+==18314==  Address 0x4a7f608 is 72 bytes inside a block of size 73 alloc'd
+==18314==    at 0x4845828: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==18314==    by 0x109A88: create_tmp_map (in /home/ismail/Masaüstü/raycastson/cub3d)
+==18314==    by 0x10A495: map_control (in /home/ismail/Masaüstü/raycastson/cub3d)
+==18314==    by 0x109320: main (in /home/ismail/Masaüstü/raycastson/cub3d)
+==18314== 
+==18314== ERROR SUMMARY: 2 errors from 2 contexts (suppressed: 0 from 0)

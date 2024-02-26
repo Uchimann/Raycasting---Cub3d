@@ -143,6 +143,8 @@ void init_struct(t_map *map)
 {
     map->cflag = 0;
     map->cflag_buff = 0;
+    map->fflag = 0;
+    map->fflag_buff = 0;
     map->eaflag = 0;
     map->eaflag_buff = 0;
     map->flagcount = 0;
@@ -253,7 +255,7 @@ void create_tmp_map(t_map *map)
     int j;
 
     j = 0;
-    map->tmp_map = malloc((map->realmap_height ) * sizeof(char *) + 1);
+    map->tmp_map = malloc((map->realmap_height + 1) * sizeof(char *));
     while(map->realmap[j])
     {
         map->tmp_map[j] = ft_strdup(map->realmap[j]);

@@ -102,12 +102,31 @@ void free_array2d(char **str)
     }
     free(str);
 }
+
+/*
+void free_array2d(char **str)
+{
+    char **temp = str; // Geçici bir pointer oluştur ve str'nin adresini atayarak başla
+
+    // temp NULL değilse ve temp'in gösterdiği adres NULL değilse
+    while (temp && *temp)
+    {
+        free(*temp); // Her bir string için belleği serbest bırak
+        temp++;      // Sonraki stringe geçmek için temp'i artır
+    }
+
+    free(str); // Dizinin kendisini serbest bırak
+}
+*/
 int take_rgb_color(char *str, t_map *map)
 {
     char **tmp;
     int colorvalue;
     tmp = NULL;
-    printf("%s\n",str);
+
+    if(!str)
+        ft_err_mapcontrol("renk alani bos birakilamaz\n",map);
+    //printf("%s\n",str);
     tmp = ft_split(str,',');
     if(tmp[0] != NULL && tmp[1] != NULL && tmp[2] != NULL)
     {
@@ -262,8 +281,9 @@ int map_f_control(t_map *map, int i)
         {
             //burda devamini texture olarak alıp direction->1 2 3 4 diye yön verebiliriz ismail abi kızmaz ise
             //map->notexture = //map[i]. sinde 4. harften itibarini okuyan ve return eden bir fonksiyon;
-            printf("f deki mapin isi -> %s\n",map->map[i]);
+            //printf("f deki mapin isi -> %s\n",map->map[i]);
             str = color_path_handler(map->map[i]);
+            printf("fcolor = %s\n",str);
             map->fcolor = take_rgb_color(str,map);
             map->fflag = 1;
             map->flagcount++;
