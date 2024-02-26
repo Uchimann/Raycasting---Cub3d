@@ -387,6 +387,7 @@ void deneme2(t_map *map)
 
         if(map->flagcount_buff == 6 && map->if_flag_buff == 0)
         {   
+            write(1,"girdiiiiiik\n",12);
             map->if_flag_buff = 1;
             map->buff_endofflag = i;
             break;
@@ -405,7 +406,7 @@ void deneme2(t_map *map)
     }
 }*/
 
-void check_last_line(t_map *map)
+/*void check_last_line(t_map *map)
 {
     int i;
     int j;
@@ -422,6 +423,26 @@ void check_last_line(t_map *map)
         return ;
     if(map->map_buff[i - 1][j] != '\n')
         ft_err_mapcontrol("Error: Map son satirda bir newline bekler",map);
+}*/
+void check_last_line(t_map *map)
+{
+    int i = 0;
+    int j = 0;
+
+    // Satır ve sütun sayılarını bulmak için döngüyü kullan
+    while (*(map->map_buff + i) && *(*(map->map_buff + i) + j))
+        i++;
+
+    // Son satırın sonunda '\n' karakterini ara
+    if (*(map->map_buff + i - 1))
+    {
+        while ((*(*(map->map_buff + i - 1) + j) != '\n') && (*(*(map->map_buff + i - 1) + j) != '\0') )
+            j++;
+    }
+
+    // Son satırın sonunda '\n' karakteri yoksa hata mesajı göster
+    if (*(*(map->map_buff + i - 1) + j) != '\n')
+        ft_err_mapcontrol("Error: Map son satirda bir newline bekler", map);
 }
 
 void newline_control2(t_map *map)
@@ -454,13 +475,14 @@ void map_control(t_map *map,char *name)
     //printf("fcolor --> %d",map->fcolor);
     //printf("ccolor --> %d",map->ccolor);
     skip_spaces(map,directions_end);
-    //printf("mapin startı asagiki satırdir \n %s \n *******************\n",map->map[map->map_start]);
+    //printf("mapin startı asagiki satırdir \n %d \n *******************\n",map->map_start);
     //printf("directions_end = %d \n",directions_end);
     //printf("mapin startı = %d \n",map->map_start);
     
 
     deneme(map);
     deneme2(map);
+    //find_buff_map_height(map);
     check_last_line(map);
     write(1,"buraya kadar bir sikinti yok",28);
     //printf("---------------------------------------");

@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "map.h"
 
-static void	ft_mlx2(t_game *g, int c)
+/*static void	ft_mlx2(t_game *g, int c)
 {
 	g->NO->addr = (int *)mlx_get_data_addr(g->NO->image, &c, &c, &c);
 	g->SO->addr = (int *)mlx_get_data_addr(g->SO->image, &c, &c, &c);
@@ -98,10 +98,10 @@ void	ray_init(t_game *game)
 		return (void)(ft_err("Error in check player \n",game));
 	game->posX = game->map->pos_x + 0.5;
 	game->posY = game->map->pos_y + 0.5;
-	/*game->dirX = 0;
-	game->dirY = 1;
-	game->planeX = -0.66;
-	game->planeY = 0;*/
+	//game->dirX = 0;
+	//game->dirY = 1;
+	//game->planeX = -0.66;
+	//game->planeY = 0;
 	game->speed = 0.08;
 	game->rspeed = 0.04;
 	game->w = false;
@@ -390,7 +390,7 @@ int	gamefunc(t_game *game)
 	rotate(game, 0, 0);
 	raycast(game);
 	return (0);
-}
+}*/
 
 int main(int ac, char **av)
 {
@@ -405,7 +405,7 @@ int main(int ac, char **av)
     map_control(&map,av[1]);
     //////////////////////////////////////////////////////////////
 	//printf("Kontrol 1 --> %s\n",game.map->notexturepath);
-    ray_init(&game);
+    /*ray_init(&game);
     game.mlx = mlx_init();
 	game.mlxWin = mlx_new_window(game.mlx, WIDTH, HEIGHT, "cub3D");
 
@@ -416,7 +416,7 @@ int main(int ac, char **av)
 	mlx_loop_hook(game.mlx, &gamefunc, &game);
 	write(1,"\n--------------------------\n",28);
 	mlx_loop(game.mlx);
-	//system("leaks");
+	//system("leaks");*/
     free_map(&map);
 	return 0;
 }
