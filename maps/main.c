@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "map.h"
 
-/*static void	ft_mlx2(t_game *g, int c)
+static void	ft_mlx2(t_game *g, int c)
 {
 	g->NO->addr = (int *)mlx_get_data_addr(g->NO->image, &c, &c, &c);
 	g->SO->addr = (int *)mlx_get_data_addr(g->SO->image, &c, &c, &c);
@@ -234,7 +234,7 @@ void	calculate_ray(t_game *game, int x)
 		game->deltaDistX = fabs(1 / game->rayDirX);
 	if (game->rayDirY == 0)
 	{
-		game->dirY = 0.001f;
+
 		game->deltaDistY = 1e30;
 	}
 	else
@@ -352,8 +352,7 @@ void	render_column(t_game *game, int x, int y)
 		else
 		{
 			if (game->side == 1 && game->rayDirY < 0)
-				game->image->addr[y * WIDTH + x] = game->NO->addr[TEXHEIGHT
-					* game->texY + game->texX];
+				game->image->addr[y * WIDTH + x] = game->NO->addr[TEXHEIGHT * game->texY + game->texX];
 			else if (game->side == 1 && game->rayDirY >= 0)
 				game->image->addr[y * WIDTH + x] = game->SO->addr[TEXHEIGHT
 					* game->texY + game->texX];
@@ -390,7 +389,7 @@ int	gamefunc(t_game *game)
 	rotate(game, 0, 0);
 	raycast(game);
 	return (0);
-}*/
+}
 
 
 
@@ -409,7 +408,7 @@ int main(int ac, char **av)
     map_control(&map,av[1]);
     //////////////////////////////////////////////////////////////
 	//printf("Kontrol 1 --> %s\n",game.map->notexturepath);
-    /*ray_init(&game);
+    ray_init(&game);
     game.mlx = mlx_init();
 	game.mlxWin = mlx_new_window(game.mlx, WIDTH, HEIGHT, "cub3D");
 
