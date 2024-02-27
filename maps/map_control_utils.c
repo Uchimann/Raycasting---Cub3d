@@ -88,22 +88,23 @@ void is_digit_color(char *tmp,char **str,t_map *map)
     }
 }
 
-
+/*
 void free_array2d(char **str)
 {
     int i;
 
     i = 0;
 
-    while(str[i])
+    while(str[i] != NULL)
     {
+        printf("free edilen str[%d] -> %s\n",i,str[i]);
         free(str[i]);
         i++;
     }
     free(str);
 }
+*/
 
-/*
 void free_array2d(char **str)
 {
     char **temp = str; // Geçici bir pointer oluştur ve str'nin adresini atayarak başla
@@ -111,13 +112,14 @@ void free_array2d(char **str)
     // temp NULL değilse ve temp'in gösterdiği adres NULL değilse
     while (temp && *temp)
     {
+        //printf("free edilen temp -> %s\n",*temp);
         free(*temp); // Her bir string için belleği serbest bırak
         temp++;      // Sonraki stringe geçmek için temp'i artır
     }
 
     free(str); // Dizinin kendisini serbest bırak
 }
-*/
+
 int take_rgb_color(char *str, t_map *map)
 {
     char **tmp;

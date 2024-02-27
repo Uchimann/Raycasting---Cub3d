@@ -351,23 +351,25 @@ void deneme(t_map *map)
     int i;
     i = 0;
     map->fd_buff = open(map->path, O_RDONLY);
-    if (map->fd == -1)
+    if (map->fd_buff == -1)
     {
         printf("Error open file\n");
         exit(1);
     }
-    map->map_buff = (char **)malloc(sizeof(char *) * (map->mapheight + 1));
+    map->map_buff = (char **)malloc(sizeof(char *) * (map->mapheight + 2));
     while (1)
     {
         line = get_next_line(map->fd_buff);
         if (!line)
             break;
         map->map_buff[i] = ft_strdup(line);
-       // printf("%s", map->map[i]);
+        printf("DENEME IN %s", map->map_buff[i]);
         i++;
         free(line);
     }
+    printf("\n*************\n");
     map->map_buff[i] = NULL;
+    printf("deneme icinde mapin sıfırı --> %s\n", map->map_buff[0]);
     close(map->fd_buff);
         //printf("\n");
 }
@@ -408,7 +410,7 @@ void deneme2(t_map *map)
     }
 }*/
 
-/*void check_last_line(t_map *map)
+void check_last_line(t_map *map)
 {
     int i;
     int j;
@@ -425,8 +427,9 @@ void deneme2(t_map *map)
         return ;
     if(map->map_buff[i - 1][j] != '\n')
         ft_err_mapcontrol("Error: Map son satirda bir newline bekler",map);
-}*/
-void check_last_line(t_map *map)
+}
+
+/*void check_last_line(t_map *map)
 {
     int i = 0;
     int j = 0;
@@ -445,7 +448,7 @@ void check_last_line(t_map *map)
     // Son satırın sonunda '\n' karakteri yoksa hata mesajı göster
     if (*(*(map->map_buff + i - 1) + j) != '\n')
         ft_err_mapcontrol("Error: Map son satirda bir newline bekler", map);
-}
+}*/
 
 void newline_control2(t_map *map)
 {
@@ -474,6 +477,11 @@ void map_control(t_map *map,char *name)
     init_struct(map);
    // printf ("buradaki mapheight == -> %d ", map->mapheight);
     directions_end = map_sixthcontrol(map);
+    printf("tex %s\n",map->eatexturepath);
+    printf("tex %s\n",map->wetexturepath);
+    printf("tex %s\n",map->notexturepath);
+    printf("tex %s\n",map->sotexturepath);
+
     //printf("fcolor --> %d",map->fcolor);
     //printf("ccolor --> %d",map->ccolor);
     skip_spaces(map,directions_end);
@@ -485,7 +493,7 @@ void map_control(t_map *map,char *name)
     deneme(map);
     deneme2(map);
     //find_buff_map_height(map);
-    check_last_line(map);
+    //check_last_line(map);
     write(1,"buraya kadar bir sikinti yok",28);
     //printf("---------------------------------------");
     //printf("%d",map->buff_endofflag);
