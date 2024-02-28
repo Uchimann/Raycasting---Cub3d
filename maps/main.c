@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include "map.h"
 
-static void	ft_mlx2(t_game *g, int c)
+/*static void	ft_mlx2(t_game *g, int c)
 {
 	g->NO->addr = (int *)mlx_get_data_addr(g->NO->image, &c, &c, &c);
 	g->SO->addr = (int *)mlx_get_data_addr(g->SO->image, &c, &c, &c);
@@ -389,7 +389,7 @@ int	gamefunc(t_game *game)
 	rotate(game, 0, 0);
 	raycast(game);
 	return (0);
-}
+}*/
 
 
 
@@ -408,7 +408,7 @@ int main(int ac, char **av)
     map_control(&map,av[1]);
     //////////////////////////////////////////////////////////////
 	//printf("Kontrol 1 --> %s\n",game.map->notexturepath);
-    ray_init(&game);
+    /*ray_init(&game);
     game.mlx = mlx_init();
 	game.mlxWin = mlx_new_window(game.mlx, WIDTH, HEIGHT, "cub3D");
 
@@ -418,7 +418,7 @@ int main(int ac, char **av)
 	mlx_hook(game.mlxWin, 17, 1L << 17, exit_mlx, &game);
 	mlx_loop_hook(game.mlx, &gamefunc, &game);
 	write(1,"\n--------------------------\n",28);
-	mlx_loop(game.mlx);
+	mlx_loop(game.mlx);*/
 	//system("leaks");*/
     free_map(&map);
 	return 0;
