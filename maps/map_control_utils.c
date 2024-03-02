@@ -1,171 +1,46 @@
 #include "map.h"
 
-char *texture_path_handler(char *str)
-{
-    int i = 0;
-    int j;
-    char *ret_path;
-   // int count = 0;
-
-    while(str[i] && str[i] != ' ')
-        i++;
-    while(str[i] && str[i] == ' ')
-        i++;
-    
-    
-   // ret_path = malloc(100 * sizeof(char *));
-    j = 0;
-    //i = 3;
-
-    ret_path = malloc((ft_strlen(&str[i]) * sizeof(char)) + 1);
-    //ret_path = ft_substr(str,i,ft_strlen(str));
-   // printf("ret_pathimiz --> %s ",ret_path);
-    if(str[i] == '\0')
-    {
-        free(ret_path);
-        return NULL;
-    }
-    while(str[i] != '\0')
-    {
-        ret_path[j] = str[i];
-        i++;
-        j++;
-    }
-    ret_path[j] = '\0';
-    return ret_path;
-}
-char *color_path_handler(char *str)
-{
-    int i = 0;
-    int j;
-    char *ret_path;
-  //  int count = 0;
-
-    while(str[i] && str[i] != ' ')
-        i++;
-    while(str[i] && str[i] == ' ')
-        i++;
-
-    //ret_path = malloc(100 * sizeof(char));
-    j = 0;
-    ret_path = malloc((ft_strlen(&str[i]) * sizeof(char)) + 1);
-    if(str[i] == '\0')
-    {
-        free(ret_path);
-        return NULL;
-    }
-    while(str[i] != '\0')
-    {
-        ret_path[j] = str[i];
-        i++;
-        j++;
-    }
-    ret_path[j] = '\0';
-    return ret_path;
-}
-
-void is_digit_color(char *tmp,char **str,t_map *map)
-{
-    int i;
-    int j;
-
-    i = 0;
-    while(str[i])
-    {
-        j = 0;
-        while(str[i][j])
-        {
-            if(!ft_isdigit(str[i][j]))
-            {   
-                free(tmp);
-                free_array2d(str);
-                ft_err_mapcontrol("renkler sadece sayi olmali ! \n",map);
-                exit(1);
-            }
-            j++;
-        }
-        i++;
-    }
-}
-
-/*
-void free_array2d(char **str)
+void check_name(char *name)
 {
     int i;
 
-    i = 0;
+    i = strlen(name);
 
-    while(str[i] != NULL)
+    if(name[i - 1] != 'b' || name[i - 2] != 'u' || name[i - 3] != 'c' || name[i - 4] != '.')
     {
-        printf("free edilen str[%d] -> %s\n",i,str[i]);
-        free(str[i]);
-        i++;
+        printf("Error\n map file must be .cub\n");
+        exit(0);
     }
-    free(str);
 }
-*/
 
-void free_array2d(char **str)
+void	mapread(t_map *map)
 {
-    char **temp = str; // Geçici bir pointer oluştur ve str'nin adresini atayarak başla
-
-    // temp NULL değilse ve temp'in gösterdiği adres NULL değilse
-    while (temp && *temp)
-    {
-        //printf("free edilen temp -> %s\n",*temp);
-        free(*temp); // Her bir string için belleği serbest bırak
-        temp++;      // Sonraki stringe geçmek için temp'i artır
-    }
-
-    free(str); // Dizinin kendisini serbest bırak
+	char	*line;
+	char	*str;
+	
+	map->fd = open(map->path, O_RDONLY);
+	map->map_line = NULL;
+	str = ft_strdup("");
+	while (1)
+	{
+		line = get_next_line(map->fd);
+		if (!line)
+			break ;
+		map->map_line = ft_strjoin(str, line);
+		free(str);
+		free(line);
+		str = map->map_line;
+	}
+	if (!map->map_line)
+	{
+		printf("Errrrrrrrrror map\n");
+		free(str);
+		free(map->map_line);
+		exit(1);
+	}
+	close(map->fd);
 }
 
-int take_rgb_color(char *str, t_map *map)
-{
-    char **tmp;
-    int colorvalue;
-    tmp = NULL;
-
-    if(!str)
-        ft_err_mapcontrol("renk alani bos birakilamaz\n",map);
-    //printf("%s\n",str);
-    tmp = ft_split(str,',');
-    if(tmp[0] != NULL && tmp[1] != NULL && tmp[2] != NULL)
-    {
-        if(!(0 <= ft_atoi(tmp[0]) && ft_atoi(tmp[0]) <= 255)
-            || !(0 <= ft_atoi(tmp[1]) && ft_atoi(tmp[1]) <= 255)
-            || !(0 <= ft_atoi(tmp[2]) && ft_atoi(tmp[2]) <= 255))
-        {
-            free_array2d(tmp);
-            free(str);
-            //free(tmp);
-            ft_err_mapcontrol("Girilen sayilar 0-255 arasinda değil !!!\n",map); // ft_err_msg;
-        }
-    }
-    else
-        return(free_array2d(tmp),free(str),ft_err_mapcontrol("renk kodlarinda eksik renk var! \n",map));
-    if(count_comma(str) != 2)
-        return(free_array2d(tmp),free(str),ft_err_mapcontrol("renk kodlarinda eksik veya fazla renk var! \n",map));
-    is_digit_color(str,tmp,map);
-    colorvalue = (ft_atoi(tmp[0]) << 16) + (ft_atoi(tmp[1]) << 8) + ft_atoi(tmp[2]);
-    free_array2d(tmp);
-    return colorvalue;
-}
-int count_comma(char *str)
-{
-    int i;
-    int count;
-
-    i = 0;
-    count = 0;
-    while(str[i])
-    {
-        if(str[i] == ',')
-            count++;
-        i++;
-    }
-    return count;
-}
 void map_size(t_map *map)
 {
 
@@ -190,139 +65,84 @@ void map_size(t_map *map)
     }
     printf("map_height = %d\n", map->mapheight);
 }
-void check_name(char *name)
+
+
+// bu fonksyon leakli en son headerda texturepathleri tutanlar freelenecek
+
+int	map_sixthcontrol(t_map *map)
 {
-    int i;
+	int	i;
+	int	j;
 
-    i = strlen(name);
-
-    if(name[i - 1] != 'b' || name[i - 2] != 'u' || name[i - 3] != 'c' || name[i - 4] != '.')
-    {
-        printf("Error\n map file must be .cub\n");
-        exit(0);
-    }
-}
-
-int space_control(t_map *map, int i)
-{
-	//char current_char;
-    int j;
-
-	j = 0;
-    while ((map->map[i][j]) != '\0')
+	i = 0;
+	while (map->mapheight > i && map->map[i])
 	{
-        if (!(map->map[i][j] == ' ' || map->map[i][j] == '\n'))
+		map_so_control(map, i);
+		map_no_control(map, i);
+		map_ea_control(map, i);
+		map_we_control(map, i);
+		map_f_control(map, i);
+		map_c_control(map, i);
+		if (map->flagcount == 6 && map->if_flag == 0)
 		{
-            printf("eror message");
-			return 0;
-        }
-        j++;
-    }
+			map->if_flag = 1;
+			j = i;
+		}
+		i++;
+	}
+	if (map->flagcount != 6)
+		ft_err_mapcontrol("map have not 6 direction programı kapat ", map);
+	if (newline_control(map, j) == 0)
+		ft_err_mapcontrol("\n direction aralarında newline veya space disinda birsey var burda hata mesaji ver ve programı kapat",
+			map);
+	return (j);
+}
 
-    return 1;
+void	skip_spaces(t_map *map, int end)
+{
+	int	i;
+
+	end++;
+	i = 0;
+	if (map->map[end] != NULL)
+	{
+		while (map->map[end])
+		{
+			while (map->map[end][i] == ' ' || map->map[end][i] == '\n')
+				i++;
+			if (map->map[end][i] == '\0')
+				end++;
+			else
+			{
+				map->map_start = end;
+				break ;
+			}
+		}
+		if (!map->map[end])
+			map->map_start = end;
+	}
+	else
+		ft_err_mapcontrol("mapin son satirinda birsey yok", map);
 }
 
 
- // satir icinde istenmeyen disinda bisey varsa 0 return eder;
-int check_line_dir(char *map)
+
+
+
+
+/*
+void free_array2d(char **str)
 {
     int i;
-    char c;
 
     i = 0;
 
-    while(map[i])
+    while(str[i] != NULL)
     {
-        c = map[i];
-        if((strncmp(map,"SO ",3) == 0))
-            return 1;
-        else if((strncmp(map,"NO ",3) == 0))
-            return 1;
-        else if((strncmp(map,"EA ",3) == 0))
-            return 1;
-        else if((strncmp(map,"WE ",3) == 0))
-            return 1;
-        else if((strncmp(map,"F ",2) == 0))
-            return 1;
-        else if((strncmp(map,"C ",2) == 0))
-            return 1;
-        else if(c == '\n') // boşluk yasak ise burayu düzelt. // veya bosluk ise
-            i++;
-        else if (c == '\0')
-            return 1;
-        else 
-            return 0;
+        printf("free edilen str[%d] -> %s\n",i,str[i]);
+        free(str[i]);
+        i++;
     }
-    return 1;
+    free(str);
 }
-
-int newline_control(t_map *map, int i) // satir icinde istenmeyenler varsa return 0 doner;
-{
-	int j;
-   // char *str;
-
-    
-	j = 0;
-	while(j < i) // 13. satıra kadar while devam eder (flagcount un 6 oldugu satır sayisina kadar)
-	{
-        if(check_line_dir(map->map[j]) == 0)
-            return 0;
-        j++;
-	}
-    return 1;
-}
-
-
-
-int map_f_control(t_map *map, int i)
-{
-    char *str;
-
-    str = NULL;
-    if((strncmp(map->map[i], "F ", 2) == 0) && (map->fflag != 1))
-        {
-            //burda devamini texture olarak alıp direction->1 2 3 4 diye yön verebiliriz ismail abi kızmaz ise
-            //map->notexture = //map[i]. sinde 4. harften itibarini okuyan ve return eden bir fonksiyon;
-            //printf("f deki mapin isi -> %s\n",map->map[i]);
-            str = color_path_handler(map->map[i]);
-            printf("fcolor = %s\n",str);
-            map->fcolor = take_rgb_color(str,map);
-            map->fflag = 1;
-            map->flagcount++;
-            free(str);
-            return 1;
-        }
-    else if((strncmp(map->map[i], "F", 1) == 0) && (map->fflag == 1))
-    {
-        free(str);
-        ft_err_mapcontrol(" \n Error! F den iki tane var burda programı bitir error mesaji ver",map);
-    }
-    return 0;
-}
-
-int map_c_control(t_map *map, int i)
-{
-    char *str;
-
-    str = NULL;
-    if((strncmp(map->map[i], "C ", 2) == 0) && (map->cflag != 1))
-        {
-            //burda devamini texture olarak alıp direction->1 2 3 4 diye yön verebiliriz ismail abi kızmaz ise
-            //map->notexture = //map[i]. sinde 4. harften itibarini okuyan ve return eden bir fonksiyon;
-            printf("mapin isi -> %s",map->map[i]);
-            str = color_path_handler(map->map[i]);
-            printf("buradaki str -> %s\n",str);
-            map->ccolor = take_rgb_color(str,map);
-            map->cflag = 1;
-            map->flagcount++;
-            free(str);
-            return 1;
-        }
-    else if((strncmp(map->map[i], "C", 1) == 0) && (map->cflag == 1))
-    {
-        free(str);
-        ft_err_mapcontrol(" \n Error! C den iki tane var burda programı bitir error mesaji ver",map);
-    }
-    //free(str);
-    return 0;
-}
+*/

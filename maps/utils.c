@@ -8,16 +8,31 @@
 int ft_err(char *str, t_game *game)
 {
     ft_err_mapcontrol(str,game->map);
-    if(game->image != NULL)
-        free(game->image);
-    if(game->NO != NULL)    
+    if(game->NO != NULL)
+    {
+        mlx_destroy_image(game->mlx, game->NO->image);
         free(game->NO);
+    }
     if(game->SO != NULL)
+    {
+        mlx_destroy_image(game->mlx, game->SO->image);
         free(game->SO);
+    }
     if(game->WE != NULL)
+    {
+        mlx_destroy_image(game->mlx, game->WE->image);
         free(game->WE);
+    }
     if(game->EA != NULL)
+    {
+        mlx_destroy_image(game->mlx, game->EA->image);
         free(game->EA);
+    }
+    if(game->image != NULL)
+    {
+        mlx_destroy_image(game->mlx, game->image);
+        free(game->image);
+    }
     return 0;
 }
 
@@ -44,5 +59,6 @@ int ft_err_mapcontrol(char *str, t_map *map)
     if(map->wetexturepath != NULL)
         free(map->wetexturepath);
     printf("%s\n",str);
+    system("leaks cub3d");
     exit(0);
 }

@@ -1,6 +1,5 @@
 #include "map.h"
 
-
 int try_path(char *str)
 {
     int fd;
