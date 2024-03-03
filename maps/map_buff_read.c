@@ -13,7 +13,7 @@ void	deneme(t_map *map)
 		exit(1);
 	}
 	map->map_buff = (char **)malloc(sizeof(char *) * (map->mapheight + 2));
-	if(!map->map_buff)
+	if (!map->map_buff)
 		ft_err_mapcontrol("Error: Map buff malloc", map);
 	while (1)
 	{

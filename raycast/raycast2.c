@@ -84,4 +84,3 @@ int	move_press(int keyCode, t_game *game)
 		game->left = true;
 	return (0);
 }
-

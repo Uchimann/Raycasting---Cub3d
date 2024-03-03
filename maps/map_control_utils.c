@@ -87,13 +87,13 @@ int	map_sixthcontrol(t_map *map)
 	if (map->flagcount != 6)
 		ft_err_mapcontrol("map have not 6 direction\n", map);
 	if (newline_control(map, j) == 0)
-		ft_err_mapcontrol("\n direction partition error",map);
+		ft_err_mapcontrol("\n direction partition error", map);
 	return (j);
 }
 
 void	skip_spaces(t_map *map, int end)
 {
-	int i;
+	int	i;
 
 	end++;
 	i = 0;

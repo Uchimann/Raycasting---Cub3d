@@ -2,12 +2,9 @@
 
 void	calculate_ray(t_game *game, int x)
 {
-	game->cameraX = 2 * x / (double)WIDTH - 1;                
-		// normalize etmek
+	game->cameraX = 2 * x / (double)WIDTH - 1;
 	game->rayDirX = game->dirX + game->planeX * game->cameraX;
-		// pixelin ekran üzerindeki konumu belirlendi X
-		// görüş açısının normalize edilmiş haline getirilmesi
-	game->rayDirY = game->dirY + game->planeY * game->cameraX; // Y
+	game->rayDirY = game->dirY + game->planeY * game->cameraX;
 	game->mapX = (int)game->posX;
 	game->mapY = (int)game->posY;
 	if (game->rayDirX == 0)

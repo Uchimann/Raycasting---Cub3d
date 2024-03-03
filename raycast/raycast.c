@@ -6,7 +6,7 @@ void	rotate(t_game *g, double dir, double plane)
 	{
 		dir = g->dirX;
 		g->dirX = g->dirX * cos(g->rspeed) - g->dirY * sin(g->rspeed);
-			// 0.66 0 0 0.66
+		// 0.66 0 0 0.66
 		g->dirY = dir * sin(g->rspeed) + g->dirY * cos(g->rspeed);
 		plane = g->planeX;
 		g->planeX = g->planeX * cos(g->rspeed) - g->planeY * sin(g->rspeed);
