@@ -6,7 +6,7 @@
 /*   By: icelebi <icelebi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 15:56:24 by icelebi           #+#    #+#             */
-/*   Updated: 2024/03/03 17:29:15 by icelebi          ###   ########.fr       */
+/*   Updated: 2024/03/03 17:42:54 by icelebi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,6 @@ int	ft_err_mapcontrol(char *str, t_map *map)
 	if (map->wetexturepath != NULL)
 		free(map->wetexturepath);
 	printf("%s\n", str);
-	system("leaks cub3d");
+	system("leaks cub3D");
 	exit(0);
 }

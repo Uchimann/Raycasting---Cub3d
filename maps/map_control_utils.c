@@ -6,7 +6,7 @@
 /*   By: icelebi <icelebi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 15:51:12 by icelebi           #+#    #+#             */
-/*   Updated: 2024/03/03 16:48:59 by icelebi          ###   ########.fr       */
+/*   Updated: 2024/03/03 17:41:10 by icelebi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ void	mapread(t_map *map)
 		printf("Errrrrrrrrror map\n");
 		free(str);
 		free(map->map_line);
-		exit(1);
+		exit(0);
 	}
 	close(map->fd);
 }
