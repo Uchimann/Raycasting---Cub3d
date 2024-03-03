@@ -33,7 +33,7 @@ void	render_column(t_game *game, int x, int y)
 		}
 	}
 }
-// plane = ekran düzlemi/kamera düzlemi
+
 int	main(int ac, char **av)
 {
 	t_map	map;
@@ -59,9 +59,6 @@ int	main(int ac, char **av)
 	mlx_hook(game.mlxWin, 3, 1L << 1, move_release, &game);
 	mlx_hook(game.mlxWin, 17, 1L << 17, exit_mlx, &game);
 	mlx_loop_hook(game.mlx, &gamefunc, &game);
-	write(1, "\n--------------------------\n", 28);
 	mlx_loop(game.mlx);
-	// system("leaks");*/
 	free_map(&map);
-	return (0);
 }
