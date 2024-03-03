@@ -90,7 +90,7 @@ int	map_f_control(t_map *map, int i)
 	else if ((strncmp(map->map[i], "F", 1) == 0) && (map->fflag == 1))
 	{
 		free(str);
-		ft_err_mapcontrol(" \n Error! F den iki tane var burda programı bitir error mesaji ver",
+		ft_err_mapcontrol(" \n Error! F is more than one in map",
 			map);
 	}
 	return 0;
@@ -118,7 +118,7 @@ int	map_c_control(t_map *map, int i)
 	else if ((strncmp(map->map[i], "C", 1) == 0) && (map->cflag == 1))
 	{
 		free(str);
-		ft_err_mapcontrol(" \n Error! C den iki tane var burda programı bitir error mesaji ver",
+		ft_err_mapcontrol(" \n Error! C is more than one in map",
 			map);
 	}
 	// free(str);

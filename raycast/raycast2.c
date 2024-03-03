@@ -69,7 +69,7 @@ void	ray_init(t_game *game)
 int	move_press(int keyCode, t_game *game)
 {
 	if (keyCode == 53)
-		ft_err("cikis yapildi", game);
+		ft_err("EXIT complete", game);
 	if (keyCode == 13)
 		game->w = true;
 	if (keyCode == 1)

@@ -8,6 +8,8 @@ void	read_real_map(t_map *map)
 	i = map->map_start;
 	j = 0;
 	map->realmap = malloc((map->mapheight - i) * sizeof(char *) + 1);
+	if(map->realmap == NULL)
+		ft_err_mapcontrol("Error: Real map malloc error", map);
 	while (map->map[i])
 	{
 		map->realmap[j] = ft_strdup(map->map[i]);
@@ -32,8 +34,7 @@ void	check_real_map(t_map *map)
 				&& map->realmap[i][j] != 'N' && map->realmap[i][j] != 'S'
 				&& map->realmap[i][j] != '0' && map->realmap[i][j] != '1'
 				&& map->realmap[i][j] != ' ')
-				ft_err_mapcontrol("hata mesaji ver programi kapat \n haritada istenmeyen seyler var \n",
-					map);
+				ft_err_mapcontrol("there is not want things in map \n",map);
 			j++;
 		}
 		i++;
@@ -65,7 +66,7 @@ void	check_real_map_counts(t_map *map)
 	}
 	if (map->playercount != 1)
 	{
-		ft_err_mapcontrol("player count fazla veya eksik!\n", map);
+		ft_err_mapcontrol("player count much or less!\n", map);
 	}
 }
 
@@ -85,6 +86,8 @@ void	create_tmp_map(t_map *map)
 
 	j = 0;
 	map->tmp_map = malloc((map->realmap_height + 1) * sizeof(char *));
+	if(	map->tmp_map == NULL)
+		ft_err_mapcontrol("Error: tmp map malloc error", map);
 	while (map->realmap[j])
 	{
 		map->tmp_map[j] = ft_strdup(map->realmap[j]);

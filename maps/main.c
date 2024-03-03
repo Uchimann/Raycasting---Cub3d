@@ -3,7 +3,7 @@
 
 int	exit_mlx(t_game *game)
 {
-	return (ft_err("cikis yapildi", game));
+	return (ft_err("exit successful", game));
 }
 
 void	render_column(t_game *game, int x, int y)

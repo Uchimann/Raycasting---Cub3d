@@ -13,6 +13,8 @@ void	deneme(t_map *map)
 		exit(1);
 	}
 	map->map_buff = (char **)malloc(sizeof(char *) * (map->mapheight + 2));
+	if(!map->map_buff)
+		ft_err_mapcontrol("Error: Map buff malloc", map);
 	while (1)
 	{
 		line = get_next_line(map->fd_buff);
@@ -64,7 +66,7 @@ void	check_last_line(t_map *map)
 	if (map->map_buff[i - 1][j] != '\n')
 		return ;
 	if (map->map_buff[i - 1][j] != '\n')
-		ft_err_mapcontrol("Error: Map son satirda bir newline bekler", map);
+		ft_err_mapcontrol("Error: Map wait the newline at lastline", map);
 }
 
 void	newline_control2(t_map *map)
@@ -75,7 +77,7 @@ void	newline_control2(t_map *map)
 	while (map->map_buff[i])
 	{
 		if (map->map_buff[i][0] == '\n')
-			ft_err_mapcontrol("Error: Map icerisinde newline var", map);
+			ft_err_mapcontrol("Error: It is newline at map", map);
 		i++;
 	}
 }
@@ -106,5 +108,5 @@ void	skip_spaces2(t_map *map, int end)
 			map->map_start_buff = end;
 	}
 	else
-		ft_err_mapcontrol("mapin son satirinda birsey yok", map);
+		ft_err_mapcontrol("map doesnt have anything at lastline", map);
 }

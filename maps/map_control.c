@@ -5,7 +5,7 @@
 
 void	free_map(t_map *map)
 {
-	ft_err_mapcontrol("basariyla tamamlandi", map);
+	ft_err_mapcontrol("successfully completed", map);
 }
 
 void	init_struct2(t_map *map)
@@ -53,7 +53,7 @@ void	path_finder(t_map *map, int y, int x)
 	if (x < 0 || y < 0 || y >= map->realmap_height || map->tmp_map[y][x] == ' '
 		|| map->tmp_map[y][x] == '\0')
 	{
-		ft_err_mapcontrol("Hatali map\n", map);
+		ft_err_mapcontrol("Wrong map\n", map);
 	}
 	else if (map->tmp_map[y][x] == '1')
 		return ;

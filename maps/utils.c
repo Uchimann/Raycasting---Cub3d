@@ -47,8 +47,6 @@ int	ft_err_mapcontrol(char *str, t_map *map)
 		free_array2d(map->map);
 	if (map->map_buff != NULL)
 		free_array2d(map->map_buff);
-	// if(map->direction != NULL)
-	//  free(map->direction);
 	if (map->eatexturepath != NULL)
 		free(map->eatexturepath);
 	if (map->notexturepath != NULL)

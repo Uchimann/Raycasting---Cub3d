@@ -85,10 +85,9 @@ int	map_sixthcontrol(t_map *map)
 		i++;
 	}
 	if (map->flagcount != 6)
-		ft_err_mapcontrol("map have not 6 direction programı kapat ", map);
+		ft_err_mapcontrol("map have not 6 direction\n", map);
 	if (newline_control(map, j) == 0)
-		ft_err_mapcontrol("\n direction aralarında newline veya space disinda birsey var burda hata mesaji ver ve programı kapat",
-			map);
+		ft_err_mapcontrol("\n direction partition error",map);
 	return (j);
 }
 
@@ -116,5 +115,5 @@ void	skip_spaces(t_map *map, int end)
 			map->map_start = end;
 	}
 	else
-		ft_err_mapcontrol("mapin son satirinda birsey yok", map);
+		ft_err_mapcontrol("map not have anything at lastline", map);
 }
