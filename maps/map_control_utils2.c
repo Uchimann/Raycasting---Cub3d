@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_control_utils2.c                               :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: icelebi <icelebi@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/03 15:53:51 by icelebi           #+#    #+#             */
+/*   Updated: 2024/03/03 16:01:16 by icelebi          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "map.h"
 
 char	*texture_path_handler(char *str)
@@ -28,6 +40,7 @@ char	*texture_path_handler(char *str)
 	ret_path[j] = '\0';
 	return (ret_path);
 }
+
 char	*color_path_handler(char *str)
 {
 	int		i;
@@ -113,6 +126,7 @@ int	take_rgb_color(char *str, t_map *map)
 	free_array2d(tmp);
 	return (colorvalue);
 }
+
 int	count_comma(char *str)
 {
 	int	i;

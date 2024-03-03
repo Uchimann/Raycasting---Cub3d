@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_buff_read.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: icelebi <icelebi@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/03 15:50:59 by icelebi           #+#    #+#             */
+/*   Updated: 2024/03/03 15:57:53 by icelebi          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "map.h"
 
 void	deneme(t_map *map)
@@ -104,7 +116,6 @@ void	skip_spaces2(t_map *map, int end)
 			}
 		}
 		if (!map->map_buff[end])
-			// mapin end'i nulla geldiği için while bittiyse
 			map->map_start_buff = end;
 	}
 	else

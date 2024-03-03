@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   real_map.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: icelebi <icelebi@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/03 15:56:21 by icelebi           #+#    #+#             */
+/*   Updated: 2024/03/03 16:53:13 by icelebi          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "map.h"
 
 void	read_real_map(t_map *map)
@@ -82,7 +94,7 @@ void	find_hight_real_map(t_map *map)
 
 void	create_tmp_map(t_map *map)
 {
-	int j;
+	int	j;
 
 	j = 0;
 	map->tmp_map = malloc((map->realmap_height + 1) * sizeof(char *));

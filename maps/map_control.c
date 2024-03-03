@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_control.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: icelebi <icelebi@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/03 15:55:57 by icelebi           #+#    #+#             */
+/*   Updated: 2024/03/03 16:01:50 by icelebi          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "map.h"
 #include <stdio.h>
 #include <stdlib.h>
@@ -78,17 +90,13 @@ void	map_control(t_map *map, char *name)
 	skip_spaces(map, directions_end);
 	deneme(map);
 	deneme2(map);
-	// find_buff_map_height(map);
-	// check_last_line(map);
 	skip_spaces2(map, map->buff_endofflag);
 	newline_control2(map);
 	read_real_map(map);
 	check_real_map(map);
 	check_real_map_counts(map);
-	// pos_x ve pos_y belirlendi artık realmapin son kontrolu kaldi
 	find_hight_real_map(map);
 	create_tmp_map(map);
 	printf("pos_y --> %d, pos_x --> %d \n", map->pos_y, map->pos_x);
-	// burda real mapin yüksekliğini bul
 	path_finder(map, map->pos_y, map->pos_x);
 }

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_controls_directions2.c                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: icelebi <icelebi@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/03 15:56:08 by icelebi           #+#    #+#             */
+/*   Updated: 2024/03/03 16:10:18 by icelebi          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "map.h"
 
 int	space_control(t_map *map, int i)
@@ -26,22 +38,13 @@ int	check_line_dir(char *map)
 	while (map[i])
 	{
 		c = map[i];
-		if ((strncmp(map, "SO ", 3) == 0))
-			return (1);
-		else if ((strncmp(map, "NO ", 3) == 0))
-			return (1);
-		else if ((strncmp(map, "EA ", 3) == 0))
-			return (1);
-		else if ((strncmp(map, "WE ", 3) == 0))
-			return (1);
-		else if ((strncmp(map, "F ", 2) == 0))
-			return (1);
-		else if ((strncmp(map, "C ", 2) == 0))
+		if ((strncmp(map, "SO ", 3) == 0) || (strncmp(map, "NO ", 3) == 0)
+			|| (strncmp(map, "EA ", 3) == 0) || (strncmp(map, "WE ", 3) == 0)
+			|| (strncmp(map, "F ", 2) == 0) || (strncmp(map, "C ", 2) == 0)
+			|| c == '\0')
 			return (1);
 		else if (c == '\n')
 			i++;
-		else if (c == '\0')
-			return (1);
 		else
 			return (0);
 	}
@@ -51,7 +54,7 @@ int	check_line_dir(char *map)
 int	newline_control(t_map *map, int i)
 
 {
-	int j;
+	int	j;
 
 	j = 0;
 	while (j < i)
@@ -88,14 +91,12 @@ int	map_f_control(t_map *map, int i)
 
 int	map_c_control(t_map *map, int i)
 {
-	char *str;
+	char	*str;
 
 	str = NULL;
 	if ((strncmp(map->map[i], "C ", 2) == 0) && (map->cflag != 1))
 	{
-		printf("mapin isi -> %s", map->map[i]);
 		str = color_path_handler(map->map[i]);
-		printf("buradaki str -> %s\n", str);
 		map->ccolor = take_rgb_color(str, map);
 		map->cflag = 1;
 		map->flagcount++;
@@ -107,6 +108,5 @@ int	map_c_control(t_map *map, int i)
 		free(str);
 		ft_err_mapcontrol(" \n Error! C is more than one in map", map);
 	}
-
 	return (0);
 }

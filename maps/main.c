@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: icelebi <icelebi@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/03 15:56:48 by icelebi           #+#    #+#             */
+/*   Updated: 2024/03/03 16:49:56 by icelebi          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "map.h"
 #include <stdio.h>
 
@@ -10,26 +22,26 @@ void	render_column(t_game *game, int x, int y)
 {
 	while (++y < HEIGHT)
 	{
-		game->texY = (int)game->texPos;
-		if (y < game->drawStart)
+		game->texy = (int)game->texpos;
+		if (y < game->drawstart)
 			game->image->addr[y * WIDTH + x] = game->map->ccolor;
-		else if (y > game->drawEnd)
+		else if (y > game->drawend)
 			game->image->addr[y * WIDTH + x] = game->map->fcolor;
 		else
 		{
-			if (game->side == 1 && game->rayDirY < 0)
+			if (game->side == 1 && game->raydiry < 0)
 				game->image->addr[y * WIDTH + x] = game->NO->addr[TEXHEIGHT
-					* game->texY + game->texX];
-			else if (game->side == 1 && game->rayDirY >= 0)
+					* game->texy + game->texx];
+			else if (game->side == 1 && game->raydiry >= 0)
 				game->image->addr[y * WIDTH + x] = game->SO->addr[TEXHEIGHT
-					* game->texY + game->texX];
-			if (game->side == 0 && game->rayDirX < 0)
+					* game->texy + game->texx];
+			if (game->side == 0 && game->raydirx < 0)
 				game->image->addr[y * WIDTH + x] = game->WE->addr[TEXHEIGHT
-					* game->texY + game->texX];
-			else if (game->side == 0 && game->rayDirX >= 0)
+					* game->texy + game->texx];
+			else if (game->side == 0 && game->raydirx >= 0)
 				game->image->addr[y * WIDTH + x] = game->EA->addr[TEXHEIGHT
-					* game->texY + game->texX];
-			game->texPos += game->step;
+					* game->texy + game->texx];
+			game->texpos += game->step;
 		}
 	}
 }

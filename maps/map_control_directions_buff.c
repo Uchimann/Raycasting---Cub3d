@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   map_control_directions_buff.c                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: icelebi <icelebi@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/03 15:51:07 by icelebi           #+#    #+#             */
+/*   Updated: 2024/03/03 15:59:01 by icelebi          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "map.h"
 
 int	map_so_control_buff(t_map *map, int i)
@@ -53,18 +65,6 @@ int	map_f_control_buff(t_map *map, int i)
 	if ((strncmp(map->map_buff[i], "F ", 2) == 0) && (map->fflag_buff != 1))
 	{
 		map->fflag_buff = 1;
-		map->flagcount_buff++;
-		return (1);
-	}
-	else
-		return (0);
-}
-
-int	map_c_control_buff(t_map *map, int i)
-{
-	if ((strncmp(map->map_buff[i], "C ", 2) == 0) && (map->cflag_buff != 1))
-	{
-		map->cflag_buff = 1;
 		map->flagcount_buff++;
 		return (1);
 	}
