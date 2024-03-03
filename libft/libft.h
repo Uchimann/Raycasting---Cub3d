@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ercdeniz <ercdeniz@student.42kocaeli.co    +#+  +:+       +#+        */
+/*   By: icelebi <icelebi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/10 10:53:29 by ercdeniz          #+#    #+#             */
-/*   Updated: 2023/10/11 16:47:39 by ercdeniz         ###   ########.fr       */
+/*   Created: 2024/03/03 16:57:53 by icelebi           #+#    #+#             */
+/*   Updated: 2024/03/03 17:01:40 by icelebi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <stdarg.h>
 # include <unistd.h>
-#include <stdint.h>
+# include <stdint.h>
 
 // LIBFT
 size_t		ft_strlen(const char *s);
@@ -28,10 +28,9 @@ char		*ft_strjoin(char const *s1, char const *s2);
 char		**free_malloc(char **tab, size_t i);
 int			word_count(char const *s, char c);
 char		**ft_split(char const *s, char c);
-char	*ft_strtrim(char const *str, char const *set);
+char		*ft_strtrim(char const *str, char const *set);
 int			ft_atoi(const char *str);
 int			ft_isdigit(int c);
-
 
 // GET_NEXT_LINE
 # ifndef BUFFER_SIZE

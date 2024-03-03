@@ -1,25 +1,36 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   raycast.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: icelebi <icelebi@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/03 15:56:28 by icelebi           #+#    #+#             */
+/*   Updated: 2024/03/03 16:41:15 by icelebi          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../maps/map.h"
 
 void	rotate(t_game *g, double dir, double plane)
 {
 	if (g->right)
 	{
-		dir = g->dirX;
-		g->dirX = g->dirX * cos(g->rspeed) - g->dirY * sin(g->rspeed);
-		// 0.66 0 0 0.66
-		g->dirY = dir * sin(g->rspeed) + g->dirY * cos(g->rspeed);
-		plane = g->planeX;
-		g->planeX = g->planeX * cos(g->rspeed) - g->planeY * sin(g->rspeed);
-		g->planeY = plane * sin(g->rspeed) + g->planeY * cos(g->rspeed);
+		dir = g->dirx;
+		g->dirx = g->dirx * cos(g->rspeed) - g->diry * sin(g->rspeed);
+		g->diry = dir * sin(g->rspeed) + g->diry * cos(g->rspeed);
+		plane = g->planex;
+		g->planex = g->planex * cos(g->rspeed) - g->planey * sin(g->rspeed);
+		g->planey = plane * sin(g->rspeed) + g->planey * cos(g->rspeed);
 	}
 	if (g->left)
 	{
-		dir = g->dirX;
-		g->dirX = g->dirX * cos(g->rspeed) + g->dirY * sin(g->rspeed);
-		g->dirY = -dir * sin(g->rspeed) + g->dirY * cos(g->rspeed);
-		plane = g->planeX;
-		g->planeX = g->planeX * cos(g->rspeed) + g->planeY * sin(g->rspeed);
-		g->planeY = -plane * sin(g->rspeed) + g->planeY * cos(g->rspeed);
+		dir = g->dirx;
+		g->dirx = g->dirx * cos(g->rspeed) + g->diry * sin(g->rspeed);
+		g->diry = -dir * sin(g->rspeed) + g->diry * cos(g->rspeed);
+		plane = g->planex;
+		g->planex = g->planex * cos(g->rspeed) + g->planey * sin(g->rspeed);
+		g->planey = -plane * sin(g->rspeed) + g->planey * cos(g->rspeed);
 	}
 }
 
@@ -27,21 +38,21 @@ void	movement(t_game *game)
 {
 	if (game->w)
 	{
-		if (game->map->realmap[(int)(game->posY)][(int)(game->posX + game->dirX
+		if (game->map->realmap[(int)(game->posy)][(int)(game->posx + game->dirx
 				* game->speed)] != '1')
-			game->posX += game->dirX * game->speed;
-		if (game->map->realmap[(int)(game->posY + game->dirY
-				* game->speed)][(int)(game->posX)] != '1')
-			game->posY += game->dirY * game->speed;
+			game->posx += game->dirx * game->speed;
+		if (game->map->realmap[(int)(game->posy + game->diry
+				* game->speed)][(int)(game->posx)] != '1')
+			game->posy += game->diry * game->speed;
 	}
 	if (game->s)
 	{
-		if (game->map->realmap[(int)(game->posY)][(int)(game->posX - game->dirX
+		if (game->map->realmap[(int)(game->posy)][(int)(game->posx - game->dirx
 				* game->speed)] != '1')
-			game->posX -= game->dirX * game->speed;
-		if (game->map->realmap[(int)(game->posY - game->dirY
-				* game->speed)][(int)(game->posX)] != '1')
-			game->posY -= game->dirY * game->speed;
+			game->posx -= game->dirx * game->speed;
+		if (game->map->realmap[(int)(game->posy - game->diry
+				* game->speed)][(int)(game->posx)] != '1')
+			game->posy -= game->diry * game->speed;
 	}
 	movement_2(game);
 }
@@ -50,21 +61,21 @@ void	movement_2(t_game *game)
 {
 	if (game->a)
 	{
-		if (game->map->realmap[(int)(game->posY)][(int)(game->posX
-				- game->planeX * game->speed)] != '1')
-			game->posX -= game->planeX * game->speed;
-		if (game->map->realmap[(int)(game->posY - game->planeY
-				* game->speed)][(int)(game->posX)] != '1')
-			game->posY -= game->planeY * game->speed;
+		if (game->map->realmap[(int)(game->posy)][(int)(game->posx
+				- game->planex * game->speed)] != '1')
+			game->posx -= game->planex * game->speed;
+		if (game->map->realmap[(int)(game->posy - game->planey
+				* game->speed)][(int)(game->posx)] != '1')
+			game->posy -= game->planey * game->speed;
 	}
 	if (game->d)
 	{
-		if (game->map->realmap[(int)(game->posY)][(int)(game->posX
-				+ game->planeX * game->speed)] != '1')
-			game->posX += game->planeX * game->speed;
-		if (game->map->realmap[(int)(game->posY + game->planeY
-				* game->speed)][(int)(game->posX)] != '1')
-			game->posY += game->planeY * game->speed;
+		if (game->map->realmap[(int)(game->posy)][(int)(game->posx
+				+ game->planex * game->speed)] != '1')
+			game->posx += game->planex * game->speed;
+		if (game->map->realmap[(int)(game->posy + game->planey
+				* game->speed)][(int)(game->posx)] != '1')
+			game->posy += game->planey * game->speed;
 	}
 }
 

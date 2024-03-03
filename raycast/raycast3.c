@@ -1,45 +1,57 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   raycast3.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: icelebi <icelebi@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/03 15:56:34 by icelebi           #+#    #+#             */
+/*   Updated: 2024/03/03 16:40:30 by icelebi          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../maps/map.h"
 
 void	calculate_ray(t_game *game, int x)
 {
-	game->cameraX = 2 * x / (double)WIDTH - 1;
-	game->rayDirX = game->dirX + game->planeX * game->cameraX;
-	game->rayDirY = game->dirY + game->planeY * game->cameraX;
-	game->mapX = (int)game->posX;
-	game->mapY = (int)game->posY;
-	if (game->rayDirX == 0)
-		game->deltaDistX = 1e30;
+	game->camerax = 2 * x / (double)WIDTH - 1;
+	game->raydirx = game->dirx + game->planex * game->camerax;
+	game->raydiry = game->diry + game->planey * game->camerax;
+	game->mapx = (int)game->posx;
+	game->mapy = (int)game->posy;
+	if (game->raydirx == 0)
+		game->deltadistx = 1e30;
 	else
-		game->deltaDistX = fabs(1 / game->rayDirX);
-	if (game->rayDirY == 0)
+		game->deltadistx = fabs(1 / game->raydirx);
+	if (game->raydiry == 0)
 	{
-		game->deltaDistY = 1e30;
+		game->deltadisty = 1e30;
 	}
 	else
-		game->deltaDistY = fabs(1 / game->rayDirY);
+		game->deltadisty = fabs(1 / game->raydiry);
 }
 
 void	calculate_step(t_game *g)
 {
-	if (g->rayDirX < 0)
+	if (g->raydirx < 0)
 	{
-		g->stepX = -1;
-		g->sideDistX = (g->posX - g->mapX) * g->deltaDistX;
+		g->stepx = -1;
+		g->sidedistx = (g->posx - g->mapx) * g->deltadistx;
 	}
 	else
 	{
-		g->stepX = 1;
-		g->sideDistX = (g->mapX + 1.0 - g->posX) * g->deltaDistX;
+		g->stepx = 1;
+		g->sidedistx = (g->mapx + 1.0 - g->posx) * g->deltadistx;
 	}
-	if (g->rayDirY < 0)
+	if (g->raydiry < 0)
 	{
-		g->stepY = -1;
-		g->sideDistY = (g->posY - g->mapY) * g->deltaDistY;
+		g->stepy = -1;
+		g->sidedisty = (g->posy - g->mapy) * g->deltadisty;
 	}
 	else
 	{
-		g->stepY = 1;
-		g->sideDistY = (g->mapY + 1.0 - g->posY) * g->deltaDistY;
+		g->stepy = 1;
+		g->sidedisty = (g->mapy + 1.0 - g->posy) * g->deltadisty;
 	}
 }
 
@@ -49,62 +61,64 @@ void	calculate_hit_distance(t_game *game)
 
 	while (1)
 	{
-		a = !(game->sideDistX < game->sideDistY);
+		a = !(game->sidedistx < game->sidedisty);
 		if (a == 0)
 		{
-			game->sideDistX += game->deltaDistX;
-			game->mapX += game->stepX;
+			game->sidedistx += game->deltadistx;
+			game->mapx += game->stepx;
 			game->side = a;
 		}
 		else if (a == 1)
 		{
-			game->sideDistY += game->deltaDistY;
-			game->mapY += game->stepY;
+			game->sidedisty += game->deltadisty;
+			game->mapy += game->stepy;
 			game->side = a;
 		}
-		if (game->map->realmap[(int)game->mapY][(int)game->mapX] == '1')
+		if (game->map->realmap[(int)game->mapy][(int)game->mapx] == '1')
 		{
 			break ;
 		}
 	}
 }
+
 void	calculate_wall_height_x(t_game *game)
 {
-	game->perpWallDist = game->sideDistX - game->deltaDistX;
-	game->lineH = (int)(HEIGHT / game->perpWallDist);
-	game->drawStart = -game->lineH / 2 + HEIGHT / 2;
-	game->drawStart = (game->drawStart >= 0) * game->drawStart;
-	game->drawEnd = game->lineH / 2 + HEIGHT / 2;
-	if (game->drawEnd >= HEIGHT)
-		game->drawEnd = HEIGHT - 1;
-	game->wallX = game->posY + game->perpWallDist * game->rayDirY;
-	game->wallX = game->wallX - (int)game->wallX;
-	game->texX = (int)(game->wallX * (double)TEXWIDTH);
-	if (game->side == 0 && game->rayDirX < 0)
-		game->texX = TEXWIDTH - game->texX - 1;
-	if (game->side == 1 && game->rayDirY > 0)
-		game->texX = TEXWIDTH - game->texX - 1;
-	game->step = 1.0 * TEXHEIGHT / game->lineH;
-	game->texPos = (game->drawStart - HEIGHT / 2 + game->lineH / 2)
+	game->perpwalldist = game->sidedistx - game->deltadistx;
+	game->lineh = (int)(HEIGHT / game->perpwalldist);
+	game->drawstart = -game->lineh / 2 + HEIGHT / 2;
+	game->drawstart = (game->drawstart >= 0) * game->drawstart;
+	game->drawend = game->lineh / 2 + HEIGHT / 2;
+	if (game->drawend >= HEIGHT)
+		game->drawend = HEIGHT - 1;
+	game->wallx = game->posy + game->perpwalldist * game->raydiry;
+	game->wallx = game->wallx - (int)game->wallx;
+	game->texx = (int)(game->wallx * (double)TEXWIDTH);
+	if (game->side == 0 && game->raydirx < 0)
+		game->texx = TEXWIDTH - game->texx - 1;
+	if (game->side == 1 && game->raydiry > 0)
+		game->texx = TEXWIDTH - game->texx - 1;
+	game->step = 1.0 * TEXHEIGHT / game->lineh;
+	game->texpos = (game->drawstart - HEIGHT / 2 + game->lineh / 2)
 		* game->step;
 }
+
 void	calculate_wall_height_y(t_game *game)
 {
-	game->perpWallDist = game->sideDistY - game->deltaDistY;
-	game->lineH = (int)(HEIGHT / game->perpWallDist);
-	game->drawStart = -game->lineH / 2 + HEIGHT / 2;
-	game->drawStart = (game->drawStart >= 0) * game->drawStart;
-	game->drawEnd = game->lineH / 2 + HEIGHT / 2;
-	if (game->drawEnd >= HEIGHT)
-		game->drawEnd = HEIGHT - 1;
-	game->wallX = game->posX + game->perpWallDist * game->rayDirX;
-	game->wallX = game->wallX - (int)game->wallX;
-	game->texX = (int)(game->wallX * (double)TEXWIDTH);
-	if (game->side == 0 && game->rayDirX < 0)
-		game->texX = TEXWIDTH - game->texX - 1;
-	if (game->side == 1 && game->rayDirY > 0)
-		game->texX = TEXWIDTH - game->texX - 1;
-	game->step = 1.0 * TEXHEIGHT / game->lineH;
-	game->texPos = (game->drawStart - HEIGHT / 2 + game->lineH / 2)
+	game->perpwalldist = game->sidedisty - game->deltadisty;
+	game->lineh = (int)(HEIGHT / game->perpwalldist);
+	game->drawstart = -game->lineh / 2 + HEIGHT / 2;
+	game->drawstart = (game->drawstart >= 0) * game->drawstart;
+	game->drawend = game->lineh / 2 + HEIGHT / 2;
+	if (game->drawend >= HEIGHT)
+		game->drawend = HEIGHT - 1;
+	game->wallx = game->posx + game->perpwalldist * game->raydirx;
+	game->wallx = game->wallx - (int)game->wallx;
+	game->texx = (int)(game->wallx * (double)TEXWIDTH);
+	if (game->side == 0 && game->raydirx < 0)
+		game->texx = TEXWIDTH - game->texx - 1;
+	if (game->side == 1 && game->raydiry > 0)
+		game->texx = TEXWIDTH - game->texx - 1;
+	game->step = 1.0 * TEXHEIGHT / game->lineh;
+	game->texpos = (game->drawstart - HEIGHT / 2 + game->lineh / 2)
 		* game->step;
 }

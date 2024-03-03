@@ -8,7 +8,7 @@ SRCS =  ./maps/main.c ./maps/free.c	./maps/map_control.c ./maps/map_buff_read.c 
 		./raycast/raycast4.c ./libft/ft_isdigit.c ./libft/ft_strlen.c ./libft/ft_strtrim.c \
 		./libft/get_next_line.c ./libft/printf.c ./libft/split.c \
 		./libft/strchr.c ./libft/strdup.c ./libft/strjoin.c ./libft/strlcpy.c \
-		./libft/strncmp.c ./libft/substr.c ./libft/ft_atoi.c 
+		./libft/strncmp.c ./libft/substr.c ./libft/ft_atoi.c ./maps/map_control_directions_buff2.c
 OBJS = $(SRCS:.c=.o)
 RM = rm -f
 MLX =./minilibx/libmlx_libmlx.a
