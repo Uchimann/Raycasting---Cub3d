@@ -8,7 +8,7 @@ void	free_map(t_map *map)
 	ft_err_mapcontrol("basariyla tamamlandi", map);
 }
 
-void init_struct2(t_map *map)
+void	init_struct2(t_map *map)
 {
 	map->pos_x = 0;
 	map->pos_y = 0;
@@ -48,7 +48,6 @@ void	init_struct(t_map *map)
 	init_struct2(map);
 }
 
-
 void	path_finder(t_map *map, int y, int x)
 {
 	if (x < 0 || y < 0 || y >= map->realmap_height || map->tmp_map[y][x] == ' '
@@ -64,7 +63,6 @@ void	path_finder(t_map *map, int y, int x)
 	path_finder(map, y, x + 1);
 	path_finder(map, y + 1, x);
 }
-
 
 void	map_control(t_map *map, char *name)
 {

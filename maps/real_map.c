@@ -81,7 +81,7 @@ void	find_hight_real_map(t_map *map)
 
 void	create_tmp_map(t_map *map)
 {
-	int	j;
+	int j;
 
 	j = 0;
 	map->tmp_map = malloc((map->realmap_height + 1) * sizeof(char *));

@@ -1,23 +1,23 @@
 #include "map.h"
 
-void check_name(char *name)
+void	check_name(char *name)
 {
-    int i;
+	int	i;
 
-    i = strlen(name);
-
-    if(name[i - 1] != 'b' || name[i - 2] != 'u' || name[i - 3] != 'c' || name[i - 4] != '.')
-    {
-        printf("Error\n map file must be .cub\n");
-        exit(0);
-    }
+	i = strlen(name);
+	if (name[i - 1] != 'b' || name[i - 2] != 'u' || name[i - 3] != 'c' || name[i
+		- 4] != '.')
+	{
+		printf("Error\n map file must be .cub\n");
+		exit(0);
+	}
 }
 
 void	mapread(t_map *map)
 {
 	char	*line;
 	char	*str;
-	
+
 	map->fd = open(map->path, O_RDONLY);
 	map->map_line = NULL;
 	str = ft_strdup("");
@@ -41,33 +41,27 @@ void	mapread(t_map *map)
 	close(map->fd);
 }
 
-void map_size(t_map *map)
+void	map_size(t_map *map)
 {
+	int	i;
 
-    map->mapheight = 0;
-    map->map = ft_split(map->map_line, '\n');
-
-    ///////////////////////////////////7
-    //printf("mapin mapinin 4.sü --> \n ******** \n %s *********\n",map->map[6]);
-    //printf("line'ımız -> %s",map->map_line);
-    if(!map->map)
-    {
-        printf("Error map\n");
-        free_map(map);
-        exit(1);
-    }
-    int i = 0;
-    while(map->map_line[i])
-    {
-        if(map->map_line[i] == '\n')
-            map->mapheight++;
-        i++;
-    }
-    printf("map_height = %d\n", map->mapheight);
+	map->mapheight = 0;
+	map->map = ft_split(map->map_line, '\n');
+	if (!map->map)
+	{
+		printf("Error map\n");
+		free_map(map);
+		exit(1);
+	}
+	i = 0;
+	while (map->map_line[i])
+	{
+		if (map->map_line[i] == '\n')
+			map->mapheight++;
+		i++;
+	}
+	printf("map_height = %d\n", map->mapheight);
 }
-
-
-// bu fonksyon leakli en son headerda texturepathleri tutanlar freelenecek
 
 int	map_sixthcontrol(t_map *map)
 {
@@ -100,7 +94,7 @@ int	map_sixthcontrol(t_map *map)
 
 void	skip_spaces(t_map *map, int end)
 {
-	int	i;
+	int i;
 
 	end++;
 	i = 0;
@@ -124,25 +118,3 @@ void	skip_spaces(t_map *map, int end)
 	else
 		ft_err_mapcontrol("mapin son satirinda birsey yok", map);
 }
-
-
-
-
-
-
-/*
-void free_array2d(char **str)
-{
-    int i;
-
-    i = 0;
-
-    while(str[i] != NULL)
-    {
-        printf("free edilen str[%d] -> %s\n",i,str[i]);
-        free(str[i]);
-        i++;
-    }
-    free(str);
-}
-*/

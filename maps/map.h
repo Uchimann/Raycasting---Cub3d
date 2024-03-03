@@ -170,5 +170,18 @@ void deneme2(t_map *map);
 int count_comma(char *str);
 void	movement_2(t_game *game);
 void	movement_(t_game *game);
-
+void	find_hight_real_map(t_map *map);
+void	check_real_map(t_map *map);
+void	check_real_map_counts(t_map *map);
+void	create_tmp_map(t_map *map);
+void	read_real_map(t_map *map);
+void	newline_control2(t_map *map);
+void	skip_spaces2(t_map *map, int end);
+void	skip_spaces(t_map *map, int end);
+void	ray_init(t_game *game);
+void	ft_mlx(t_game *g, int a, int b);
+int	move_press(int keyCode, t_game *game);
+int	move_release(int keyCode, t_game *game);
+int	gamefunc(t_game *game);
+static void	ft_mlx2(t_game *g, int c);
 #endif
