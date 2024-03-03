@@ -1,5 +1,47 @@
 #include "../maps/map.h"
 
+static bool	south_north(t_game *game)
+{
+	if (game->map->pov == 'S')
+	{
+		game->dirX = 0;
+		game->dirY = 1;
+		game->planeX = -0.66;
+		game->planeY = 0;
+		return (true);
+	}
+	else if (game->map->pov == 'N')
+	{
+		game->dirX = 0;
+		game->dirY = -1.00;
+		game->planeX = 0.66;
+		game->planeY = 0;
+		return (true);
+	}
+	return (false);
+}
+
+static bool	east_west(t_game *game)
+{
+	if (game->map->pov == 'W')
+	{
+		game->dirX = -1.0;
+		game->dirY = 0.0;
+		game->planeX = 0.0;
+		game->planeY = -0.66;
+		return (true);
+	}
+	else if (game->map->pov == 'E')
+	{
+		game->dirX = 1.0;
+		game->dirY = 0.0;
+		game->planeX = 0.0;
+		game->planeY = 0.66;
+		return (true);
+	}
+	return (false);
+}
+
 bool	check_player(t_game *game)
 {
 	if (east_west(game))
@@ -43,19 +85,3 @@ int	move_press(int keyCode, t_game *game)
 	return (0);
 }
 
-int	move_release(int keyCode, t_game *game)
-{
-	if (keyCode == 13)
-		game->w = false;
-	if (keyCode == 1)
-		game->s = false;
-	if (keyCode == 0)
-		game->a = false;
-	if (keyCode == 2)
-		game->d = false;
-	if (keyCode == 124)
-		game->right = false;
-	if (keyCode == 123)
-		game->left = false;
-	return (0);
-}

@@ -183,5 +183,11 @@ void	ft_mlx(t_game *g, int a, int b);
 int	move_press(int keyCode, t_game *game);
 int	move_release(int keyCode, t_game *game);
 int	gamefunc(t_game *game);
-static void	ft_mlx2(t_game *g, int c);
+void	render_column(t_game *game, int x, int y);
+void	calculate_wall_height(t_game *game);
+void	calculate_hit_distance(t_game *game);
+void	calculate_ray(t_game *game, int x);
+void	calculate_step(t_game *g);
+void	calculate_wall_height_x(t_game *game);
+void	calculate_wall_height_y(t_game *game);
 #endif
