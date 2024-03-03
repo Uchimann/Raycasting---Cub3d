@@ -26,7 +26,7 @@
 @end
 
 
-@interface MlxWin : NSOpenGLView
+@interface mlxwin : NSOpenGLView
 {
   NSWindowEvent		*win;
   NSOpenGLContext	*ctx;

@@ -6,7 +6,7 @@
 /*   By: icelebi <icelebi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 15:53:51 by icelebi           #+#    #+#             */
-/*   Updated: 2024/03/03 16:01:16 by icelebi          ###   ########.fr       */
+/*   Updated: 2024/03/03 17:20:38 by icelebi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,15 +94,8 @@ void	is_digit_color(char *tmp, char **str, t_map *map)
 	}
 }
 
-int	take_rgb_color(char *str, t_map *map)
+int	tmp_control_color(char **tmp, t_map *map, char *str)
 {
-	char	**tmp;
-	int		colorvalue;
-
-	tmp = NULL;
-	if (!str)
-		ft_err_mapcontrol("color musn't empty\n", map);
-	tmp = ft_split(str, ',');
 	if (tmp[0] != NULL && tmp[1] != NULL && tmp[2] != NULL)
 	{
 		if (!(0 <= ft_atoi(tmp[0]) && ft_atoi(tmp[0]) <= 255)
@@ -114,7 +107,19 @@ int	take_rgb_color(char *str, t_map *map)
 			ft_err_mapcontrol("Number should beetween the 0-255 !!!\n", map);
 		}
 	}
-	else
+	return (1);
+}
+
+int	take_rgb_color(char *str, t_map *map)
+{
+	char	**tmp;
+	int		colorvalue;
+
+	tmp = NULL;
+	if (!str)
+		ft_err_mapcontrol("color musn't empty\n", map);
+	tmp = ft_split(str, ',');
+	if (!tmp_control_color(tmp, map, str))
 		return (free_array2d(tmp), free(str),
 			ft_err_mapcontrol("colors not enough! \n", map));
 	if (count_comma(str) != 2)
@@ -125,20 +130,4 @@ int	take_rgb_color(char *str, t_map *map)
 		+ ft_atoi(tmp[2]);
 	free_array2d(tmp);
 	return (colorvalue);
-}
-
-int	count_comma(char *str)
-{
-	int	i;
-	int	count;
-
-	i = 0;
-	count = 0;
-	while (str[i])
-	{
-		if (str[i] == ',')
-			count++;
-		i++;
-	}
-	return (count);
 }

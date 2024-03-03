@@ -6,7 +6,7 @@
 /*   By: icelebi <icelebi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 15:56:16 by icelebi           #+#    #+#             */
-/*   Updated: 2024/03/03 17:02:41 by icelebi          ###   ########.fr       */
+/*   Updated: 2024/03/03 17:06:04 by icelebi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ typedef struct s_map
 typedef struct s_game
 {
 	void	*mlx;
-	void	*mlxWin;
+	void	*mlxwin;
 	double	posx;
 	double	posy;
 	double	dirx;
@@ -129,10 +129,10 @@ typedef struct s_game
 	bool	right;
 	float	speed;
 	float	rspeed;
-	t_image	*NO;
-	t_image	*SO;
-	t_image	*WE;
-	t_image	*EA;
+	t_image	*no;
+	t_image	*so;
+	t_image	*we;
+	t_image	*ea;
 	t_image	*image;
 	t_map	*map;
 }	t_game;

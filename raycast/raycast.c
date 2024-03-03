@@ -6,7 +6,7 @@
 /*   By: icelebi <icelebi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 15:56:28 by icelebi           #+#    #+#             */
-/*   Updated: 2024/03/03 16:41:15 by icelebi          ###   ########.fr       */
+/*   Updated: 2024/03/03 17:06:04 by icelebi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ static void	raycast(t_game *g)
 		calculate_wall_height(g);
 		render_column(g, x, -1);
 	}
-	mlx_put_image_to_window(g->mlx, g->mlxWin, g->image->image, 0, 0);
+	mlx_put_image_to_window(g->mlx, g->mlxwin, g->image->image, 0, 0);
 }
 
 int	gamefunc(t_game *game)

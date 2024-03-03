@@ -6,7 +6,7 @@ SRCS =  ./maps/main.c ./maps/free.c	./maps/map_control.c ./maps/map_buff_read.c 
 		./maps/map_controls_directions.c ./maps/map_controls_directions2.c ./maps/real_map.c \
 		./maps/utils.c ./raycast/raycast.c ./raycast/raycast2.c ./raycast/raycast3.c \
 		./raycast/raycast4.c ./libft/ft_isdigit.c ./libft/ft_strlen.c ./libft/ft_strtrim.c \
-		./libft/get_next_line.c ./libft/printf.c ./libft/split.c \
+		./libft/get_next_line.c ./libft/printf.c ./libft/split.c ./maps/map_control_utils3.c \
 		./libft/strchr.c ./libft/strdup.c ./libft/strjoin.c ./libft/strlcpy.c \
 		./libft/strncmp.c ./libft/substr.c ./libft/ft_atoi.c ./maps/map_control_directions_buff2.c
 OBJS = $(SRCS:.c=.o)

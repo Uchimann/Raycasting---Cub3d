@@ -38,7 +38,7 @@ void	*mlx_new_opengl_window(mlx_ptr_t *mlx_ptr, int size_x, int size_y, char *ti
 
   NSRect windowRect = NSMakeRect(100, 100, size_x, size_y);
   str = [NSString stringWithCString:title encoding:NSASCIIStringEncoding];
-  newwin->winid = [[MlxWin alloc] initWithRect:windowRect andTitle:str pfaAttrs:pfa_attrs_opengl];
+  newwin->winid = [[mlxwin alloc] initWithRect:windowRect andTitle:str pfaAttrs:pfa_attrs_opengl];
 
   return ((void *)newwin);
 }

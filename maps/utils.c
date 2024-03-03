@@ -6,7 +6,7 @@
 /*   By: icelebi <icelebi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 15:56:24 by icelebi           #+#    #+#             */
-/*   Updated: 2024/03/03 15:56:25 by icelebi          ###   ########.fr       */
+/*   Updated: 2024/03/03 17:29:15 by icelebi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,31 +19,28 @@
 int	ft_err(char *str, t_game *game)
 {
 	ft_err_mapcontrol(str, game->map);
-	if (game->NO != NULL)
+	if (game->no != NULL)
 	{
-		mlx_destroy_image(game->mlx, game->NO->image);
-		free(game->NO);
+		mlx_destroy_image(game->mlx, game->no->image);
+		free(game->no);
 	}
-	if (game->SO != NULL)
+	if (game->so != NULL)
 	{
-		mlx_destroy_image(game->mlx, game->SO->image);
-		free(game->SO);
+		mlx_destroy_image(game->mlx, game->so->image);
+		free(game->so);
 	}
-	if (game->WE != NULL)
+	if (game->we != NULL)
 	{
-		mlx_destroy_image(game->mlx, game->WE->image);
-		free(game->WE);
+		mlx_destroy_image(game->mlx, game->we->image);
+		free(game->we);
 	}
-	if (game->EA != NULL)
+	if (game->ea != NULL)
 	{
-		mlx_destroy_image(game->mlx, game->EA->image);
-		free(game->EA);
+		mlx_destroy_image(game->mlx, game->ea->image);
+		free(game->ea);
 	}
 	if (game->image != NULL)
-	{
-		mlx_destroy_image(game->mlx, game->image);
 		free(game->image);
-	}
 	return (0);
 }
 

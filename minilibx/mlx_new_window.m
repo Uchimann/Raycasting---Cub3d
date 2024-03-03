@@ -336,7 +336,7 @@ int get_mouse_button(NSEventType eventtype)
 @end
 
 
-@implementation MlxWin
+@implementation mlxwin
 
 - (id) initWithRect: (NSRect)rect andTitle: (NSString *)title pfaAttrs: (NSOpenGLPixelFormatAttribute *)attrs
 {
@@ -390,7 +390,7 @@ int get_mouse_button(NSEventType eventtype)
       // NSWindowController* windowController = [[NSWindowController alloc] initWithWindow:win];
       // [windowController windowTitleForDocumentDisplayName:title];
       // [windowController showWindow:nil];
-      // MlxWinController *mlxWinCont = [[MlxWinController alloc] initWin:win andTitle:title];
+      // mlxwinController *mlxwinCont = [[mlxwinController alloc] initWin:win andTitle:title];
 
       // after nswindowcontroller who will retake first responder
       //      BOOL r = [win makeFirstResponder:nil];
@@ -660,7 +660,7 @@ void *mlx_new_window(mlx_ptr_t *mlx_ptr, int size_x, int size_y, char *title)
 
   NSRect windowRect = NSMakeRect(100, 100, size_x, size_y);
   str = [NSString stringWithCString:title encoding:NSASCIIStringEncoding];
-  newwin->winid = [[MlxWin alloc] initWithRect:windowRect andTitle:str pfaAttrs:pfa_attrs];
+  newwin->winid = [[mlxwin alloc] initWithRect:windowRect andTitle:str pfaAttrs:pfa_attrs];
   if (newwin->winid)
     if (![(id)(newwin->winid) pixel_management])
       {
