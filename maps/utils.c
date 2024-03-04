@@ -6,7 +6,7 @@
 /*   By: icelebi <icelebi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 15:56:24 by icelebi           #+#    #+#             */
-/*   Updated: 2024/03/03 17:42:54 by icelebi          ###   ########.fr       */
+/*   Updated: 2024/03/04 15:23:55 by icelebi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <unistd.h>
+#include "../minilibx/mlx.h"
 
 int	ft_err(char *str, t_game *game)
 {

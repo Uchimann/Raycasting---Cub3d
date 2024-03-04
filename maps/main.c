@@ -6,12 +6,14 @@
 /*   By: icelebi <icelebi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 15:56:48 by icelebi           #+#    #+#             */
-/*   Updated: 2024/03/03 17:06:04 by icelebi          ###   ########.fr       */
+/*   Updated: 2024/03/04 15:27:45 by icelebi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "map.h"
 #include <stdio.h>
+#include <stdlib.h>
+#include "../minilibx/mlx.h"
 
 int	exit_mlx(t_game *game)
 {

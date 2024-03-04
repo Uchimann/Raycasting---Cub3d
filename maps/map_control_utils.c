@@ -6,17 +6,21 @@
 /*   By: icelebi <icelebi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 15:51:12 by icelebi           #+#    #+#             */
-/*   Updated: 2024/03/03 17:41:10 by icelebi          ###   ########.fr       */
+/*   Updated: 2024/03/04 15:15:25 by icelebi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "map.h"
+#include <stdlib.h>
+#include "../libft/libft.h"
+#include <fcntl.h>
+#include <stdio.h>
 
 void	check_name(char *name)
 {
 	int	i;
 
-	i = strlen(name);
+	i = ft_strlen(name);
 	if (name[i - 1] != 'b' || name[i - 2] != 'u'
 		|| name[i - 3] != 'c' || name[i -4] != '.')
 	{

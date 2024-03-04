@@ -6,11 +6,13 @@
 /*   By: icelebi <icelebi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 15:56:21 by icelebi           #+#    #+#             */
-/*   Updated: 2024/03/03 16:53:13 by icelebi          ###   ########.fr       */
+/*   Updated: 2024/03/04 15:23:30 by icelebi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "map.h"
+#include <stdlib.h>
+#include "../libft/libft.h"
 
 void	read_real_map(t_map *map)
 {

@@ -6,11 +6,12 @@
 /*   By: icelebi <icelebi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 15:56:34 by icelebi           #+#    #+#             */
-/*   Updated: 2024/03/03 16:40:30 by icelebi          ###   ########.fr       */
+/*   Updated: 2024/03/04 15:24:37 by icelebi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../maps/map.h"
+#include <math.h>
 
 void	calculate_ray(t_game *game, int x)
 {

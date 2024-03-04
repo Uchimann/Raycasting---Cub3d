@@ -6,11 +6,13 @@
 /*   By: icelebi <icelebi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 15:56:02 by icelebi           #+#    #+#             */
-/*   Updated: 2024/03/03 16:04:17 by icelebi          ###   ########.fr       */
+/*   Updated: 2024/03/04 15:21:06 by icelebi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "map.h"
+#include "../libft/libft.h"
+#include <fcntl.h>
 
 int	try_path(char *str)
 {
@@ -28,7 +30,7 @@ int	try_path(char *str)
 
 int	map_so_control(t_map *map, int i)
 {
-	if ((strncmp(map->map[i], "SO ", 3) == 0) && (map->soflag != 1))
+	if ((ft_strncmp(map->map[i], "SO ", 3) == 0) && (map->soflag != 1))
 	{
 		map->sotexturepath = texture_path_handler(map->map[i]);
 		if (!map->sotexturepath)
@@ -37,14 +39,14 @@ int	map_so_control(t_map *map, int i)
 		map->flagcount++;
 		return (1);
 	}
-	else if ((strncmp(map->map[i], "SO", 2) == 0) && (map->soflag == 1))
+	else if ((ft_strncmp(map->map[i], "SO", 2) == 0) && (map->soflag == 1))
 		ft_err_mapcontrol(" \n Error! SO more than one in map", map);
 	return (0);
 }
 
 int	map_no_control(t_map *map, int i)
 {
-	if ((strncmp(map->map[i], "NO ", 3) == 0) && (map->noflag != 1))
+	if ((ft_strncmp(map->map[i], "NO ", 3) == 0) && (map->noflag != 1))
 	{
 		map->notexturepath = texture_path_handler(map->map[i]);
 		if (!map->notexturepath)
@@ -53,14 +55,14 @@ int	map_no_control(t_map *map, int i)
 		map->flagcount++;
 		return (1);
 	}
-	else if ((strncmp(map->map[i], "NO", 2) == 0) && (map->noflag == 1))
+	else if ((ft_strncmp(map->map[i], "NO", 2) == 0) && (map->noflag == 1))
 		ft_err_mapcontrol(" \n Error! NO is more than one in map", map);
 	return (0);
 }
 
 int	map_ea_control(t_map *map, int i)
 {
-	if ((strncmp(map->map[i], "EA ", 3) == 0) && (map->eaflag != 1))
+	if ((ft_strncmp(map->map[i], "EA ", 3) == 0) && (map->eaflag != 1))
 	{
 		map->eatexturepath = texture_path_handler(map->map[i]);
 		if (!map->eatexturepath)
@@ -69,14 +71,14 @@ int	map_ea_control(t_map *map, int i)
 		map->flagcount++;
 		return (1);
 	}
-	else if ((strncmp(map->map[i], "EA", 2) == 0) && (map->eaflag == 1))
+	else if ((ft_strncmp(map->map[i], "EA", 2) == 0) && (map->eaflag == 1))
 		ft_err_mapcontrol(" \n Error! EA more than one in map", map);
 	return (0);
 }
 
 int	map_we_control(t_map *map, int i)
 {
-	if ((strncmp(map->map[i], "WE ", 3) == 0) && (map->weflag != 1))
+	if ((ft_strncmp(map->map[i], "WE ", 3) == 0) && (map->weflag != 1))
 	{
 		map->wetexturepath = texture_path_handler(map->map[i]);
 		if (!map->wetexturepath)
@@ -85,7 +87,7 @@ int	map_we_control(t_map *map, int i)
 		map->flagcount++;
 		return (1);
 	}
-	else if ((strncmp(map->map[i], "WE", 2) == 0) && (map->weflag == 1))
+	else if ((ft_strncmp(map->map[i], "WE", 2) == 0) && (map->weflag == 1))
 		ft_err_mapcontrol(" \n Error! WE more than one in map", map);
 	return (0);
 }

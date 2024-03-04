@@ -6,23 +6,14 @@
 /*   By: icelebi <icelebi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 15:56:16 by icelebi           #+#    #+#             */
-/*   Updated: 2024/03/03 17:06:04 by icelebi          ###   ########.fr       */
+/*   Updated: 2024/03/04 15:26:29 by icelebi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MAP_H
 # define MAP_H
 
-# include <stdlib.h>
-# include <string.h>
-# include <fcntl.h>
-# include <unistd.h>
-# include <stdio.h>
-# include "../libft/libft.h"
-# include "map.h"
 # include <stdbool.h>
-# include "../minilibx/mlx.h"
-# include <math.h>
 
 # define WIDTH 800
 # define HEIGHT 600
@@ -168,8 +159,8 @@ int		take_rgb_color(char *str, t_map *map);
 void	is_digit_color(char *tmp, char **str, t_map *map);
 void	free_array2d(char **str);
 void	create_tmp_map(t_map *map);
-void	deneme(t_map *map);
-void	deneme2(t_map *map);
+void	func(t_map *map);
+void	func2(t_map *map);
 int		count_comma(char *str);
 void	movement_2(t_game *game);
 void	movement_(t_game *game);

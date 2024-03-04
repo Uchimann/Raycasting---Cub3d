@@ -6,11 +6,13 @@
 /*   By: icelebi <icelebi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 15:56:36 by icelebi           #+#    #+#             */
-/*   Updated: 2024/03/03 17:17:42 by icelebi          ###   ########.fr       */
+/*   Updated: 2024/03/04 15:24:56 by icelebi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../maps/map.h"
+#include "../minilibx/mlx.h"
+#include <stdlib.h>
 
 static void	ft_mlx2(t_game *g, int c)
 {

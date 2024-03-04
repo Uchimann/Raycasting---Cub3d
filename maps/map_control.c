@@ -6,7 +6,7 @@
 /*   By: icelebi <icelebi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 15:55:57 by icelebi           #+#    #+#             */
-/*   Updated: 2024/03/03 16:01:50 by icelebi          ###   ########.fr       */
+/*   Updated: 2024/03/04 15:26:29 by icelebi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,8 @@ void	map_control(t_map *map, char *name)
 	init_struct(map);
 	directions_end = map_sixthcontrol(map);
 	skip_spaces(map, directions_end);
-	deneme(map);
-	deneme2(map);
+	func(map);
+	func2(map);
 	skip_spaces2(map, map->buff_endofflag);
 	newline_control2(map);
 	read_real_map(map);

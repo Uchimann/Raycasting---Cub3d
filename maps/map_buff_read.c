@@ -6,13 +6,17 @@
 /*   By: icelebi <icelebi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 15:50:59 by icelebi           #+#    #+#             */
-/*   Updated: 2024/03/03 15:57:53 by icelebi          ###   ########.fr       */
+/*   Updated: 2024/03/04 15:26:29 by icelebi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "map.h"
+#include <fcntl.h>
+#include <stdlib.h>
+#include "../libft/libft.h"
+#include <stdio.h>
 
-void	deneme(t_map *map)
+void	func(t_map *map)
 {
 	char	*line;
 	int		i;
@@ -40,7 +44,7 @@ void	deneme(t_map *map)
 	close(map->fd_buff);
 }
 
-void	deneme2(t_map *map)
+void	func2(t_map *map)
 {
 	int	i;
 

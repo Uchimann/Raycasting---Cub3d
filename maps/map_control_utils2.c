@@ -6,11 +6,13 @@
 /*   By: icelebi <icelebi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 15:53:51 by icelebi           #+#    #+#             */
-/*   Updated: 2024/03/03 17:20:38 by icelebi          ###   ########.fr       */
+/*   Updated: 2024/03/04 15:17:37 by icelebi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "map.h"
+#include <stdlib.h>
+#include "../libft/libft.h"
 
 char	*texture_path_handler(char *str)
 {

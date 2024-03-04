@@ -6,11 +6,13 @@
 /*   By: icelebi <icelebi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 15:56:28 by icelebi           #+#    #+#             */
-/*   Updated: 2024/03/03 17:06:04 by icelebi          ###   ########.fr       */
+/*   Updated: 2024/03/04 15:24:25 by icelebi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../maps/map.h"
+#include "../minilibx/mlx.h"
+#include <math.h>
 
 void	rotate(t_game *g, double dir, double plane)
 {
