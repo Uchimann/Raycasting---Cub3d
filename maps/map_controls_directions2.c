@@ -6,7 +6,7 @@
 /*   By: icelebi <icelebi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 15:56:08 by icelebi           #+#    #+#             */
-/*   Updated: 2024/03/04 15:30:09 by icelebi          ###   ########.fr       */
+/*   Updated: 2024/03/05 17:03:27 by icelebi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,6 @@ int	map_f_control(t_map *map, int i)
 	if ((ft_strncmp(map->map[i], "F ", 2) == 0) && (map->fflag != 1))
 	{
 		str = color_path_handler(map->map[i]);
-		printf("fcolor = %s\n", str);
 		map->fcolor = take_rgb_color(str, map);
 		map->fflag = 1;
 		map->flagcount++;

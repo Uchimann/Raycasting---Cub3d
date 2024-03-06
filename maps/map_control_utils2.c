@@ -6,7 +6,7 @@
 /*   By: icelebi <icelebi@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/03/03 15:53:51 by icelebi           #+#    #+#             */
-/*   Updated: 2024/03/04 15:17:37 by icelebi          ###   ########.fr       */
+/*   Updated: 2024/03/05 17:12:31 by icelebi          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,9 +106,12 @@ int	tmp_control_color(char **tmp, t_map *map, char *str)
 		{
 			free_array2d(tmp);
 			free(str);
-			ft_err_mapcontrol("Number should beetween the 0-255 !!!\n", map);
+			(void)map;
+			return (0);
 		}
 	}
+	else
+		return (0);
 	return (1);
 }
 
